@@ -1,0 +1,15 @@
+for the DATA LAYER 
+
+
+The sequence you'll follow:
+Scrapers → Validation Gate 1 → MongoDB → Transform → Validation Gate 2 → PostgreSQL
+Airflow comes LAST after everything works manually first.
+
+Step 1 right now: Build the scrapers
+You need 3 scrapers (Aqarmap, OLX, Bayut) but start with one — Aqarmap, it's the most structured.
+Before writing a single line of code though, you need to do this manually first:
+
+Open Aqarmap.com
+Find a property listing
+Inspect the page (F12 → Elements)
+Identify where these fields live in the HTML: price, area, location, floor, rooms, bathrooms, finishing, furnished, compound, property_type
