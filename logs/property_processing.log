@@ -1,0 +1,224 @@
+2026-05-10 18:18:01 - INFO - [PropertyLogger] - __init__:72 - ✅ Connected to MongoDB successfully
+2026-05-10 18:18:02 - INFO - [PropertyLogger] - __init__:49 - Pipeline initialized
+2026-05-10 18:26:52 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 10500000 | Location: 90 Avenue Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/ready-to-move-resale-apartment-for-sale-in-90avenue-5th-settlement-new-cairo-ID503314582.html
+2026-05-10 18:26:53 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3bc03506e3566ac8eea
+2026-05-10 18:26:53 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:54 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 23000000 | Location: Villette Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/fully-furnished-ground-apartment-with-appliances-and-garden-in-sodic-villette-v-residence-new-cairo-developed-by-sodic-ID503402222.html
+2026-05-10 18:26:54 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3be03506e3566ac8eeb
+2026-05-10 18:26:54 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:54 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 3167000 | Location: Shorouk City, Cairo | Link: https://www.dubizzle.com.eg/en/ad/apartment-171sqm2-landscape-view-directly-on-el-hurriya-road-close-to-carrefour-and-all-services-third-districtshorouk-city-ID503461670.html
+2026-05-10 18:26:54 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3be03506e3566ac8eec
+2026-05-10 18:26:55 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:55 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9795750 | Location: Palm Hills New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-ready-to-move-garden-view-fully-finished-in-palm-hills-new-cairo-ID503492047.html
+2026-05-10 18:26:55 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3bf03506e3566ac8eed
+2026-05-10 18:26:55 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:55 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 4100000 | Location: L’Avenir, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-saleready-to-move-at-a-bargain-price-in-lavenir-compound-al-ahly-sabbour-mostakbal-city-lavenir-ID503492432.html
+2026-05-10 18:26:55 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3bf03506e3566ac8eee
+2026-05-10 18:26:55 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:55 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 8500000 | Location: City Gate Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/best-price-in-city-gate-compound-apartment-fully-finished-for-sale-installments-up-to-10-years-ID503492449.html
+2026-05-10 18:26:55 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3bf03506e3566ac8eef
+2026-05-10 18:26:55 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:55 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 3697000 | Location: Taj City Compound, 1st Settlement | Link: https://www.dubizzle.com.eg/en/ad/take-advantage-of-a-50-discount-and-own-a-luxury-apartment-for-sale-in-the-most-prestigious-location-in-taj-city-compound-directly-opposite-the-airp-ID503063855.html
+2026-05-10 18:26:56 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3bf03506e3566ac8ef0
+2026-05-10 18:26:56 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:56 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 2665000 | Location: Aljar, Shorouk City | Link: https://www.dubizzle.com.eg/en/ad/ake-advantage-of-this-amazing-deal-on-a-fully-finished-super-lux-apartment-for-sale-in-al-shorouk-in-al-jar-compound-opposite-madinaty-ID503350237.html
+2026-05-10 18:26:56 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c003506e3566ac8ef1
+2026-05-10 18:26:56 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:56 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 13200000 | Location: Azzar Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/duplex-for-sale-in-azzar-fifth-settlement-next-to-auc-with-installments-ID502290679.html
+2026-05-10 18:26:56 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c003506e3566ac8ef2
+2026-05-10 18:26:56 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:56 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 10000000 | Location: Mountain View Hyde Park Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/%D8%B4%D9%82%D8%A9-%D9%84%D9%82%D8%B7%D8%A9-%D9%81%D9%8A-mountain-view-hyde-park-%D9%83%D8%A7%D8%B4-%D8%A8%D8%B3%D8%B9%D8%B1-%D9%85%D9%85%D9%8A%D8%B2-%D8%AC%D8%AF%D8%A7-ID207901944.html
+2026-05-10 18:26:56 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c003506e3566ac8ef3
+2026-05-10 18:26:56 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:56 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 10500000 | Location: Rehab City, New Cairo | Link: https://www.dubizzle.com.eg/en/ad/200-sq-m-apartment-for-sale-in-al-rehab-garden-view-prime-location-near-services-ID503348790.html
+2026-05-10 18:26:56 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c003506e3566ac8ef4
+2026-05-10 18:26:57 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:57 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 15800000 | Location: Uptown Cairo, Mokattam | Link: https://www.dubizzle.com.eg/en/ad/with-a-prime-view-fully-finished-apartment-for-sale-in-uptown-cairo-mokattam-ID503489435.html
+2026-05-10 18:26:57 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c103506e3566ac8ef5
+2026-05-10 18:26:57 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:57 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 3400000 | Location: R8, New Capital City | Link: https://www.dubizzle.com.eg/en/ad/with-a-monthly-installment-of-only-18-thousand-and-a-track-record-of-250-residential-projects-own-an-apartment-of-110-square-meters-at-the-initial-launch-price-with-a-down-payment-of-5-and-an-installment-period-of-up-to-12-years-credibility-with-artil-among-the-best-compounds-in-the-capital-ID503493597.html
+2026-05-10 18:26:57 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c103506e3566ac8ef6
+2026-05-10 18:26:57 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:57 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 10700000 | Location: Mountain View iCity Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/ready-to-move-prime-location-semi-finished-4-bedrooms-i-villa-roof-for-sale-in-mountain-view-icity-compound-new-cairo-ID503491923.html
+2026-05-10 18:26:57 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c103506e3566ac8ef7
+2026-05-10 18:26:57 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:57 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 3690000 | Location: Taj City Compound, 1st Settlement | Link: https://www.dubizzle.com.eg/en/ad/luxury-apartment-for-sale-at-half-price-take-advantage-of-the-discount-in-the-most-prestigious-location-in-taj-city-compound-directly-opposite-the-a-ID503205764.html
+2026-05-10 18:26:57 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c103506e3566ac8ef8
+2026-05-10 18:26:57 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:57 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 13000000 | Location: Hyde Park New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-in-hyde-park-5th-settlement-new-cairo-ready-to-move-with-the-lowest-price-ID503473511.html
+2026-05-10 18:26:58 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c103506e3566ac8ef9
+2026-05-10 18:26:58 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:58 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9000000 | Location: Madinaty, Cairo | Link: https://www.dubizzle.com.eg/en/ad/for-sale-in-madinaty-the-apartment-is-178-meters-very-excellent-location-and-a-shot-ID503491897.html
+2026-05-10 18:26:58 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c203506e3566ac8efa
+2026-05-10 18:26:58 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:58 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 6700000 | Location: Sarai, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/under-market-price-fully-finished-apartment-for-sale-in-sarai-ready-to-move-ID503487662.html
+2026-05-10 18:26:58 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c203506e3566ac8efb
+2026-05-10 18:26:58 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:58 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 4800000 | Location: L’Avenir, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/lowest-price-in-lavenir-compound-for-an-apartment-with-a-practical-layout-offering-comfortable-living-spaces-in-one-of-mostakbal-citys-ID503472506.html
+2026-05-10 18:26:58 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c203506e3566ac8efc
+2026-05-10 18:26:58 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:58 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 10000000 | Location: Lake View Residence 2, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/under-market-price-ground-apartment-for-sale-at-lake-view-residence-new-cairo-ready-to-move-ID502706739.html
+2026-05-10 18:26:58 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c203506e3566ac8efd
+2026-05-10 18:26:59 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:59 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9000000 | Location: Mountain View Hyde Park Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/penthouse-for-sale-in-mountain-view-hyde-park-prime-location-inside-the-compound-with-an-open-view-ID503350875.html
+2026-05-10 18:26:59 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c303506e3566ac8efe
+2026-05-10 18:26:59 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:59 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 2017000 | Location: Sarai, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/studio-apartment-for-sale-at-the-lowest-price-directly-opposite-the-entrance-to-fifth-settlement-and-next-to-madinaty-in-sarai-compound-ID503349790.html
+2026-05-10 18:26:59 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c303506e3566ac8eff
+2026-05-10 18:26:59 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:59 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 8000000 | Location: Mountain View Hyde Park Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/under-market-price-ready-to-move-apartment-for-sale-in-mountain-view-hyde-park-new-cairo-ID503349182.html
+2026-05-10 18:26:59 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c303506e3566ac8f00
+2026-05-10 18:26:59 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:26:59 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 15750000 | Location: Mountain View Hyde Park Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-in-mountain-view-hyde-park-fully-finished-with-kitchen-and-air-conditioning-units-prime-location-ID503327318.html
+2026-05-10 18:26:59 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c303506e3566ac8f01
+2026-05-10 18:26:59 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:00 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 11500000 | Location: EL Patio ORO Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/220-sq-m-resale-apartment-in-patio-oro-hotel-finishing-open-landscape-view-lowest-total-price-in-the-market-ready-for-viewing-prime-location-ID503011276.html
+2026-05-10 18:27:00 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c403506e3566ac8f02
+2026-05-10 18:27:00 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:00 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 13000000 | Location: Hyde Park New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/for-quick-sale-at-below-market-price-apartment-226m2-double-view-in-hyde-park-park-corner-area-with-a-private-layout-ready-for-viewing-ID503493512.html
+2026-05-10 18:27:00 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c403506e3566ac8f03
+2026-05-10 18:27:00 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:00 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9440000 | Location: Sarai, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/selling-duplex-in-sarai-with-instalment-delivery-dp4m-ID502995098.html
+2026-05-10 18:27:00 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c403506e3566ac8f04
+2026-05-10 18:27:00 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:00 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9086000 | Location: Palm Hills New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/fully-finished-apartment-in-palm-hills-new-cairo-cleo-2-years-delivery-with-the-lowest-price-and-downpayment-270k-best-deal-in-the-golden-square-ID503493755.html
+2026-05-10 18:27:00 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c403506e3566ac8f05
+2026-05-10 18:27:00 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:00 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9500000 | Location: L’Avenir, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/ready-to-move-of-a-ground-floor-duplex-with-a-landscape-view-at-a-price-lower-than-the-market-rate-in-lavenir-compound-al-ahli-sabbour-mostakb-ID503348618.html
+2026-05-10 18:27:00 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c403506e3566ac8f06
+2026-05-10 18:27:01 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:01 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 17000000 | Location: Swan Lake Residences, 1st Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-ready-for-immediate-occupancy-fully-finished-and-ready-to-move-in-below-market-price-in-swan-lake-compound-hassan-allam-ID503493173.html
+2026-05-10 18:27:01 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c503506e3566ac8f07
+2026-05-10 18:27:01 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:01 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 15500000 | Location: Swan Lake Residences, 1st Settlement | Link: https://www.dubizzle.com.eg/en/ad/fully-finished-ready-to-move-in-apartment-at-a-bargain-price-in-swan-lake-compound-hassan-allam-ID503493208.html
+2026-05-10 18:27:01 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c503506e3566ac8f08
+2026-05-10 18:27:01 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:01 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 13420000 | Location: Fifth Square Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/lowest-down-payment-apartment-168m-prime-view-with-acs-sale-fifth-square-al-marasem-ID501781914.html
+2026-05-10 18:27:01 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c503506e3566ac8f09
+2026-05-10 18:27:01 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:01 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 10765000 | Location: Bloomfields, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/prime-opportunity-penthouse-in-bloomfields-ready-to-move-in-ID502995055.html
+2026-05-10 18:27:01 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c503506e3566ac8f0a
+2026-05-10 18:27:02 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:02 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 8900000 | Location: Bloomfields, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/duplex-garden-bloomfields-phase-lakeside-for-sale-ID502995126.html
+2026-05-10 18:27:02 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c603506e3566ac8f0b
+2026-05-10 18:27:02 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:02 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 7350000 | Location: Bloomfields, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/prime-opportunity-ready-to-move-apartment-in-bloomfields-ID502995047.html
+2026-05-10 18:27:02 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c603506e3566ac8f0c
+2026-05-10 18:27:02 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:02 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 4900000 | Location: Haptown, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-in-hap-town-semi-finished-ID502994950.html
+2026-05-10 18:27:02 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c603506e3566ac8f0d
+2026-05-10 18:27:02 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:02 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 4500000 | Location: Sarai, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/unit-for-sale-sarai-ID503493746.html
+2026-05-10 18:27:02 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c603506e3566ac8f0e
+2026-05-10 18:27:02 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:03 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 18000000 | Location: Swan Lake Residences, 1st Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-ready-for-immediate-occupancy-fully-finished-and-ready-to-move-in-below-market-price-in-swan-lake-compound-hassan-allam-ID503493184.html
+2026-05-10 18:27:03 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c703506e3566ac8f0f
+2026-05-10 18:27:03 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:03 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 4100000 | Location: Madinaty, Cairo | Link: https://www.dubizzle.com.eg/en/ad/for-sale-in-madinaty-b11-area-82-meters-2-bedrooms-1-bathroom-second-floor-open-view-ID503338784.html
+2026-05-10 18:27:03 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c703506e3566ac8f10
+2026-05-10 18:27:03 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:03 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 11000000 | Location: Mountain View Hyde Park Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/fully-ultra-super-lux-finished-with-acs-and-kitchen-very-prime-location-penthouse-for-sale-in-mountain-view-hyde-park-compound-new-cairo-ID503343627.html
+2026-05-10 18:27:03 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c703506e3566ac8f11
+2026-05-10 18:27:03 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:03 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 8000000 | Location: Tierra, 6th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-next-to-hyde-park-in-tierra-compound-with-a-5-down-payment-through-the-saudi-egyptian-company-and-installments-tierra-sed-ID503493721.html
+2026-05-10 18:27:03 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c703506e3566ac8f12
+2026-05-10 18:27:03 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:03 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 11668000 | Location: Mountain View iCity Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/for-sale-ivilla-roof-corner-prime-location-lagoon-mountain-view-icity-ID503493465.html
+2026-05-10 18:27:03 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c703506e3566ac8f13
+2026-05-10 18:27:04 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:04 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 12717000 | Location: Palm Hills New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/luxury-lagoon-view-apartment-for-sale-in-cleo-palm-hills-new-cairo-fully-finished-with-installments-until-2027-ID503492943.html
+2026-05-10 18:27:04 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c803506e3566ac8f14
+2026-05-10 18:27:04 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:04 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 12500000 | Location: Palm Hills New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/ready-to-move-apartment-for-sale-in-palm-hills-new-cairo-phase-3-with-installments-prime-investment-opportunity-ID503492426.html
+2026-05-10 18:27:04 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c803506e3566ac8f15
+2026-05-10 18:27:04 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:04 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 24300000 | Location: Lake view Residence Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/best-price-in-lake-view-residence-very-prime-location-3-bedroom-apartment-for-sale-in-golden-square-new-cairo-compound-fully-finished-ready-to-move-ID503392052.html
+2026-05-10 18:27:04 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c803506e3566ac8f16
+2026-05-10 18:27:04 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:04 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 16500000 | Location: Eastown Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-fully-finished-ready-to-move-3-bed-in-sodic-eastown-new-cairo-ID503212645.html
+2026-05-10 18:27:04 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c803506e3566ac8f17
+2026-05-10 18:27:04 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:05 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 4000000 | Location: Nasr City, Cairo | Link: https://www.dubizzle.com.eg/en/ad/%D8%B4%D9%82%D8%A9-%D9%84%D9%84%D8%A8%D9%8A%D8%B9-%D9%85%D9%83%D8%B1%D9%85-%D8%B9%D8%A8%D9%8A%D8%AF-%D9%85%D8%AF%D9%8A%D9%86%D8%A9-%D9%86%D8%B5%D8%B1-ID206521160.html
+2026-05-10 18:27:05 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c903506e3566ac8f18
+2026-05-10 18:27:05 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:05 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 7500000 | Location: Promenade New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-with-private-garden-ready-to-move-next-to-mivida-lowest-price-on-the-market-ID503422318.html
+2026-05-10 18:27:05 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c903506e3566ac8f19
+2026-05-10 18:27:05 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:05 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 6200000 | Location: Madinaty, Cairo | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-in-my-city-b11-wide-garden-view-open-location-close-to-services-super-lux-finishing-at-commercial-price-ID503492918.html
+2026-05-10 18:27:05 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c903506e3566ac8f1a
+2026-05-10 18:27:05 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:05 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 12500000 | Location: The Waterway Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/resale-apartment-fully-finished-with-air-conditioners-in-waterway-conveniently-located-near-90th-street-and-the-american-university-in-cairo-ID503303455.html
+2026-05-10 18:27:05 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c903506e3566ac8f1b
+2026-05-10 18:27:05 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:05 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 11800000 | Location: EL Patio ORO Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-in-patio-oro-new-cairo-ready-ID503493196.html
+2026-05-10 18:27:06 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3c903506e3566ac8f1c
+2026-05-10 18:27:06 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:06 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 11760000 | Location: Hyde Park New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-171-m-for-sale-under-market-price-bahry-ready-to-move-view-landscape-very-prime-location-in-hyde-park-new-cairo-ID503492254.html
+2026-05-10 18:27:06 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3ca03506e3566ac8f1d
+2026-05-10 18:27:06 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:06 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 10086000 | Location: Hyde Park New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-168-m-for-sale-under-market-price-bahry-ready-to-move-view-landscape-very-prime-location-in-hyde-park-new-cairo-ID503492145.html
+2026-05-10 18:27:06 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3ca03506e3566ac8f1e
+2026-05-10 18:27:06 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:06 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 5650000 | Location: Hyde Park New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/under-market-price-apartment-with-garden-95-m-for-sale-bahry-ready-to-move-very-prime-location-in-hyde-park-new-cairo-ID503492037.html
+2026-05-10 18:27:06 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3ca03506e3566ac8f1f
+2026-05-10 18:27:06 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:06 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9500000 | Location: Tag Sultan, Nasr City | Link: https://www.dubizzle.com.eg/en/ad/under-market-price-apartment-210-m-fully-finished-for-sale-bahry-ready-to-move-very-prime-location-in-tag-sultan-ID503491788.html
+2026-05-10 18:27:06 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3ca03506e3566ac8f20
+2026-05-10 18:27:07 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:07 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 8700000 | Location: Ashrafeya Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/under-market-price-apartment-210-mfully-finished-for-sale-bahry-ready-to-move-very-prime-location-in-ashrafeya-residence-near-mohammed-naguib-axis-ID503491651.html
+2026-05-10 18:27:07 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cb03506e3566ac8f21
+2026-05-10 18:27:07 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:07 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 10086000 | Location: Hyde Park New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-168-m-for-sale-ready-to-move-under-market-price-with-down-payment-and-installments-view-landscape-prime-location-in-hyde-park-new-cairo-ID503482328.html
+2026-05-10 18:27:07 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cb03506e3566ac8f22
+2026-05-10 18:27:07 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:07 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 11120000 | Location: Hyde Park New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-191-m-for-sale-ready-to-move-under-market-price-view-landscape-prime-location-in-hyde-park-new-cairo-ID503482252.html
+2026-05-10 18:27:07 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cb03506e3566ac8f23
+2026-05-10 18:27:07 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:07 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 6483000 | Location: Hyde Park New Cairo Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/under-market-price-apartment-139-m-for-sale-ready-to-move-view-landscape-very-prime-location-in-hyde-park-new-cairo-ID503477981.html
+2026-05-10 18:27:07 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cb03506e3566ac8f24
+2026-05-10 18:27:07 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:07 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 6225450 | Location: Madinaty, Cairo | Link: https://www.dubizzle.com.eg/en/ad/%D8%B4%D9%82%D8%A9-%D9%81%D9%8A-%D9%85%D8%AF%D9%8A%D9%86%D8%AA%D9%8A-%D8%A8%D9%85%D8%B3%D8%A7%D8%AD%D8%A9-75-%D9%85%D8%AA%D8%B1%D9%85%D9%86-%D8%A7%D9%84%D9%85%D8%A7%D9%84%D9%83-%D9%85%D8%A8%D8%A7%D8%B4%D8%B1%D8%A9-%D8%B9%D9%84%D9%89-10-%D8%B3%D9%86%D9%88%D8%A7%D8%AA-ID206227467.html
+2026-05-10 18:27:08 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cb03506e3566ac8f25
+2026-05-10 18:27:08 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:08 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 7900000 | Location: Fifth Square Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-in-fifth-square-al-marasem-fully-finished-ID503493735.html
+2026-05-10 18:27:08 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cc03506e3566ac8f26
+2026-05-10 18:27:08 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:08 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 14900000 | Location: Mountain View Hyde Park Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/exclusive-price-very-prime-location-ivilla-garden-for-sale-in-mountain-view-hyde-park-compound-new-cairo-ID503238422.html
+2026-05-10 18:27:08 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cc03506e3566ac8f27
+2026-05-10 18:27:08 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:08 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 3500000 | Location: 9th Zone, Nasr City | Link: https://www.dubizzle.com.eg/en/ad/%D8%B4%D9%82%D9%87-%D9%84%D9%84%D8%A8%D9%8A%D8%B9-%D9%81%D9%8A-%D9%85%D8%AF%D9%8A%D9%86%D8%A9-%D9%86%D8%B5%D8%B1-150%D9%85-%D8%A7%D9%84%D9%85%D9%86%D8%B7%D9%82%D8%A9-%D8%A7%D9%84%D8%AA%D8%A7%D8%B3%D8%B9%D9%87-nasr-city-ID207712628.html
+2026-05-10 18:27:08 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cc03506e3566ac8f28
+2026-05-10 18:27:08 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:08 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 14500000 | Location: Mountain View Hyde Park Compound, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/direct-on-swimming-pool-under-market-price-ivilla-roof-for-sale-in-mountain-view-hyde-park-compound-new-cairo-ID503238596.html
+2026-05-10 18:27:08 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cc03506e3566ac8f29
+2026-05-10 18:27:09 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:09 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 6500000 | Location: Tierra, 6th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-near-hyde-park-with-a-5-down-payment-in-tierra-compound-with-the-saudi-egyptian-company-and-installments-over-the-longest-payment-ID503493723.html
+2026-05-10 18:27:09 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cd03506e3566ac8f2a
+2026-05-10 18:27:09 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:09 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 6600000 | Location: Bloomfields, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/spacious-240m-apartment-for-sale-in-bloomfields-phase-cluster-rtm-ID502998100.html
+2026-05-10 18:27:09 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cd03506e3566ac8f2b
+2026-05-10 18:27:09 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:09 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 6800000 | Location: Bloomfields, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/spacious-3-bedroom-apartment-for-sale-in-bloomfields-phase-cluster-ID502997915.html
+2026-05-10 18:27:09 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cd03506e3566ac8f2c
+2026-05-10 18:27:09 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:09 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9400000 | Location: Madinaty, Cairo | Link: https://www.dubizzle.com.eg/en/ad/a-premium-apartment-is-available-for-sale-in-madinaty-tmg-ID503493711.html
+2026-05-10 18:27:09 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cd03506e3566ac8f2d
+2026-05-10 18:27:09 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:10 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 4850000 | Location: Al Andalous, 5th Settlement | Link: https://www.dubizzle.com.eg/en/ad/luxury-finishing-apartment-in-al-andalus-second-number-from-qatamiya-dunes-for-a-very-special-location-ID503493715.html
+2026-05-10 18:27:10 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3ce03506e3566ac8f2e
+2026-05-10 18:27:10 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:10 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9436132 | Location: Madinaty, Cairo | Link: https://www.dubizzle.com.eg/en/ad/%D8%B4%D9%82%D8%A9-107-%D9%85%D8%AA%D8%B1-%D9%85%D9%86-%D8%A7%D9%84%D9%85%D8%A7%D9%84%D9%83-%D9%85%D8%A8%D8%A7%D8%B4%D8%B1%D8%A9-%D8%B9%D9%84%D9%89-10-%D8%B3%D9%86%D9%88%D8%A7%D8%AA-ID206937484.html
+2026-05-10 18:27:10 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3ce03506e3566ac8f2f
+2026-05-10 18:27:10 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:10 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9250000 | Location: Bloomfields, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/luxury-lakeside-duplex-roof-for-sale-in-bloomfields-300m-rtm-ID502997943.html
+2026-05-10 18:27:10 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3ce03506e3566ac8f30
+2026-05-10 18:27:11 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:11 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 2000000 | Location: Bloomfields, Mostakbal City | Link: https://www.dubizzle.com.eg/en/ad/studio-for-sale-in-bloomfields-phase-dt-76m-ID502998106.html
+2026-05-10 18:27:11 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cf03506e3566ac8f31
+2026-05-10 18:27:11 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:11 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 9300000 | Location: Taj City Compound, 1st Settlement | Link: https://www.dubizzle.com.eg/en/ad/last-chance-to-own-a-3-bedroom-apartment-with-no-down-payment-in-taj-city-compound-and-a-50-discount-for-a-very-limited-time-ID503452899.html
+2026-05-10 18:27:11 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cf03506e3566ac8f32
+2026-05-10 18:27:11 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
+2026-05-10 18:27:11 - INFO - [PropertyLogger] - log_approved:147 - Property APPROVED ✅ | Source: dubizzle | Price: 5000000 | Location: Tierra, 6th Settlement | Link: https://www.dubizzle.com.eg/en/ad/apartment-for-sale-next-to-hyde-park-in-tierra-compound-with-a-5-down-payment-through-the-saudi-egyptian-company-and-installments-tierra-sed-ID503493718.html
+2026-05-10 18:27:11 - DEBUG - [PropertyLogger] - log_approved:155 - Saved approved property to raw_listings: 6a00a3cf03506e3566ac8f33
+2026-05-10 18:27:12 - DEBUG - [PropertyLogger] - _update_approval_stats:201 - Updated approval stats for source: dubizzle
