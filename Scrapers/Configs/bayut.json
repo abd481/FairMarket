@@ -1,13 +1,13 @@
-{
-  "path" : "/Users/abdelrahmansayed/Real estate Project/Scrappers/Configs/bayut.json",
-  "base_url": "https://www.bayut.eg",
 
+{
+  "base_url": "https://www.bayut.eg",
+   "path" : "/Users/abdelrahmansayed/Real estate Project/Scrappers/Configs/bayut.json",
+  
   "listing": {
-    "cards": "li[role='article']",
+    "cards": "li[aria-label='Listing']",
     "link_selector": "a",
     "pagination_url": "/en/cairo/properties-for-sale/?page={page}"
   },
-
   "detail": {
     "fields": {
       "Price": "[aria-label*='Price']",
@@ -17,17 +17,18 @@
       "Baths": "[aria-label*='Baths']",
       "Area": "[aria-label*='Area']",
       "Type": "[aria-label*='Type']",
-      "Furnishing": "[aria-label*='Furnishing']"
+      "Furnishing": "[aria-label*='Furnishing']",
+      "Reactivated_Date": "[aria-label='Reactivated date']"
     },
-
     "amenities": {
-  "section": "div.dd50d995",
-  "items": "div._050edc8e"
-
-   
-   }
+      "section_title": "h2:has-text('Features')",
+      "button_label": "[aria-label='More amenities']",
+      "dialog": "#property-amenity-dialog",
+      "fallback_items": "span"
+    }
   }
 }
+
 
 
 
