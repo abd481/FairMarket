@@ -1,15 +1,108 @@
-for the DATA LAYER 
+THE MOST IMPORTANT NOTE IS | Walaa Magdy is the owner and the author of this Project ♥️ (ايه رايك بقي 😂)
 
+ANOTHER IMPORTANT NOTE Walaa Magdy (she's my teammate and my friend and also she's Nice and a little COLDD 🥶)
 
-The sequence you'll follow:
-Scrapers → Validation Gate 1 → MongoDB → Transform → Validation Gate 2 → PostgreSQL
-Airflow comes LAST after everything works manually first.
+DATA PIPELINE OVERVIEW
 
-Step 1 right now: Build the scrapers
-You need 3 scrapers (Aqarmap, OLX, Bayut) but start with one — Aqarmap, it's the most structured.
-Before writing a single line of code though, you need to do this manually first:
+SYSTEM FLOW
 
-Open Aqarmap.com
-Find a property listing
-Inspect the page (F12 → Elements)
-Identify where these fields live in the HTML: price, area, location, floor, rooms, bathrooms, finishing, furnished, compound, property_type
+Scraper → Validation Pipeline → MongoDB
+
+⸻
+
+HOW THE SYSTEM WORKS
+
+1. Scraper runs and collects raw listings from websites
+2. Raw data is sent to the ingestion pipeline
+3. Each listing goes through processing steps:
+    * Normalize field names
+    * Generate checksum for deduplication
+    * Detect state: NEW, DUPLICATE, or UPDATED
+    * Apply schema validation (Gate 1)
+    * Apply business rules validation (Gate 2)
+    * Store result in MongoDB
+    * Log processing results
+
+⸻
+
+DATA FLOW PIPELINE
+
+Scraper
+→ normalize
+→ checksum generation
+→ deduplication check
+→ Gate 1 (schema validation)
+→ Gate 2 (business rules)
+→ MongoDB storage
+
+⸻
+
+PIPELINE COMPONENTS
+
+normalize.py
+Maps raw scraped fields into standard schema
+
+checksum.py
+Detects whether listing is NEW, DUPLICATE, or UPDATED
+
+schema.py
+Validates and converts raw data types into structured format
+
+rules.py
+Applies business logic validation rules
+
+property_logger.py
+Handles logging of approved and rejected listings
+
+ingest.py
+Main orchestrator that runs the full pipeline
+
+⸻
+
+PROCESSING STEPS
+
+1. Raw data is collected by scraper
+2. Data is normalized into a standard format
+3. A checksum is generated using key fields
+4. System checks listing status:
+    * If DUPLICATE → skip and store in duplicate collection
+    * If NEW or UPDATED → continue processing
+5. Gate 1 validation:
+    * Converts strings to proper types
+    * Rejects invalid formats
+6. Gate 2 validation:
+    * Ensures business logic is correct
+    * Examples: price > 0, area > 0, valid links
+7. Final storage decision:
+    * Approved → stored in raw_listings
+    * Rejected → stored in rejected_listings
+
+⸻
+
+MONGODB COLLECTIONS
+
+scraped_raw
+Raw unprocessed scraper output
+
+raw_listings
+Validated and approved listings ready for use
+
+rejected_listings
+Listings that failed validation with reasons
+
+duplicate_listings
+Exact duplicates detected during processing
+
+property_stats
+Pipeline statistics and metrics per source
+
+listing_versions
+Historical versions of updated listings
+
+⸻
+
+IMPORTANT NOTES
+
+* CSV files are only used for local testing
+* Production system uses MongoDB only
+* Duplicate listings are stored for tracking, not processed further
