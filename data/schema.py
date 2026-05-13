@@ -26,7 +26,7 @@ class Property(BaseModel):
     amenities: Optional[List[str]] = None
     link: Optional[str] = None
     furnishing: Optional[str] = None
-    reactivated_date: Optional[datetime] = None
+    reactivated_date: Optional[datetime] = None 
 
     # --- System / metadata fields ---
     source: str = "unknown"

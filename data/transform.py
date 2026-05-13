@@ -90,6 +90,7 @@ def transform():
 
                 if isinstance(amenities, list):
                     amenities = ", ".join(amenities)
+                amenities = amenities if amenities else None
 
                 flat = {
                     "checksum":         doc.get("checksum"),

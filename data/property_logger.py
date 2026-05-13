@@ -6,7 +6,7 @@ from pymongo import MongoClient
 from typing import List, Optional
 from dotenv import load_dotenv
 
-# Load environment variables
+# Load environment variables0
 load_dotenv()
 
 # Configure logging
@@ -17,14 +17,6 @@ os.makedirs("logs", exist_ok=True)
 logger = logging.getLogger("PropertyLogger")
 logger.setLevel(logging.DEBUG)
 
-# Console handler (for real-time output)
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
-console_formatter = logging.Formatter(
-    "%(asctime)s - %(levelname)s - [%(name)s] - %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S"
-)
-console_handler.setFormatter(console_formatter)
 
 # File handler (for historical records)
 file_handler = logging.FileHandler(LOG_FILE)
@@ -36,7 +28,6 @@ file_formatter = logging.Formatter(
 file_handler.setFormatter(file_formatter)
 
 # Add handlers to logger
-logger.addHandler(console_handler)
 logger.addHandler(file_handler)
 
 
@@ -49,7 +40,7 @@ class PropertyLogger:
     - raw_listings: Properties that passed validation (with metadata fields: link, source, scraped_at)
     - property_stats: Aggregated statistics per source
     
-    Handles logging to console, file, and MongoDB.
+
     """
     
     def __init__(self):
@@ -142,12 +133,6 @@ class PropertyLogger:
                 "scraped_at": prop.scraped_at,
                 "listing_data": prop.model_dump()
             }
-            
-            # Log to console and file
-            logger.info(
-                f"Property APPROVED ✅ | Source: {prop.source} | Price: {prop.price} | "
-                f"Location: {prop.location} | Link: {prop.link}"
-            )
             
             # Save to raw_listings collection
             if self.raw_collection is not None:

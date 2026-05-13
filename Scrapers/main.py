@@ -31,11 +31,11 @@ async def main():
     3. Pass data to validation pipeline
     4. Pipeline handles: normalize → dedupe → validate → store
     """
-    config = load_config('/Users/abdelrahmansayed/Real estate Project/Scrapers/Configs/olx.json')
+    config = load_config('/Users/abdelrahmansayed/Real estate Project/Scrapers/Configs/bayut.json')
     
     print("🔄 Starting scraper...")
     # Step 1: Scrape raw data
-    raw_listings = await scrape(config, max_pages=2)
+    raw_listings = await scrape(config, max_pages=3)
     
     if not raw_listings:
         print("❌ No data scraped")

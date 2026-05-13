@@ -45,16 +45,15 @@ async def extract_amenities(page, config):
 
         section = page.locator(amenities_config["section_title"])
         if await section.count() == 0:
-            return []
+            return None
 
         try:
             await section.first.wait_for(timeout=3000)
         except Exception:
             pass
 
-        button_selector = amenities_config.get("button_label")  # None for OLX
+        button_selector = amenities_config.get("button_label")
 
-        # Bayut flow: button exists → click it → try to read from dialog
         if button_selector:
             btn = page.locator(button_selector)
             if await btn.count() > 0:
@@ -62,26 +61,27 @@ async def extract_amenities(page, config):
                     await btn.first.scroll_into_view_if_needed()
                     await btn.first.click(force=True)
 
-                    dialog_selector = amenities_config.get("dialog")  # None for OLX
+                    dialog_selector = amenities_config.get("dialog")
                     if dialog_selector:
                         await page.wait_for_selector(dialog_selector, timeout=3000)
                         items = page.locator(dialog_selector).locator(
                             amenities_config.get("fallback_items", "span")
                         )
                         amenities = await items.all_text_contents()
-                        return list(dict.fromkeys([a.strip() for a in amenities if a.strip()]))
+                        result = list(dict.fromkeys([a.strip() for a in amenities if a.strip()]))
+                        return result if result else None
                 except Exception:
-                    pass  # Click failed → fall through to fallback below
+                    pass
 
-        # OLX flow (and Bayut fallback): read items directly from the section container
         container = section.locator("xpath=..")
         items = container.locator(amenities_config.get("fallback_items", "span"))
         amenities = await items.all_text_contents()
-        return list(dict.fromkeys([a.strip() for a in amenities if a.strip()]))
+        result = list(dict.fromkeys([a.strip() for a in amenities if a.strip()]))
+        return result if result else None
 
     except Exception as e:
         print(f"❌ Error in extract_amenities: {e}")
-        return []
+        return None
 
 
 async def extract_details(page, link, config):
