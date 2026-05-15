@@ -1,0 +1,8 @@
+services:
+  pipeline:
+    build: .
+    container_name: real_estate_pipeline
+    env_file:
+      - .env
+    volumes:
+      - .:/app
