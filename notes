@@ -2,6 +2,22 @@ THE MOST IMPORTANT NOTE IS | Walaa Magdy is the owner and the author of this Pro
 
 ANOTHER IMPORTANT NOTE Walaa Magdy (she's my teammate and my friend and also she's Nice and a little COLDD 🥶)
 
+
+
+
+What we have so far 
+
+engine.py — Playwright scraper ✅
+normalize.py — field mapping ✅
+schema.py — Pydantic validation (Gate 1) ✅
+rules.py — business rules (Gate 2) ✅
+ingest.py — orchestrates normalize → dedupe → validate → MongoDB ✅
+transform.py — MongoDB → PostgreSQL ✅
+main.py — runs everything ✅
+cleaning.ipynb — cleans PostgreSQL data → clean_properties ✅
+
+
+
 DATA PIPELINE OVERVIEW
 
 SYSTEM FLOW

@@ -31,7 +31,7 @@ async def main():
     3. Pass data to validation pipeline
     4. Pipeline handles: normalize → dedupe → validate → store
     """
-    config = load_config('/Users/abdelrahmansayed/Real estate Project/Scrapers/Configs/olx.json')
+    config = load_config(Path(__file__).parent / "configs" / "olx.json")
     
     print("🔄 Starting scraper...")
     # Step 1: Scrape raw data
