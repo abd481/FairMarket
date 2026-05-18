@@ -9,10 +9,18 @@ from pymongo import MongoClient
 from utils.secrets import get_secret
 load_dotenv()
 
-mongo_uri = get_secret('MONGO_URI','mongo-uri')
-client = MongoClient(mongo_uri)
-db = client["real_estate_db"]
-raw_collection = db["raw_listings"]
+_raw_collection = None
+
+
+def get_raw_collection():
+    """Create the Mongo collection lazily so imports do not open DB connections."""
+    global _raw_collection
+    if _raw_collection is None:
+        mongo_uri = get_secret('MONGO_URI','mongo-uri')
+        client = MongoClient(mongo_uri)
+        db = client["real_estate_db"]
+        _raw_collection = db["raw_listings"]
+    return _raw_collection
 
 
 def clean(text):
@@ -22,6 +30,7 @@ def clean(text):
 
 def filter_new_links(all_links: list) -> list:
     """Return only links that don't already exist in the database."""
+    raw_collection = get_raw_collection()
     existing = set(
         doc["link"] for doc in raw_collection.find(
             {"link": {"$in": all_links}},

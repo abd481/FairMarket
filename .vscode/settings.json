@@ -6,7 +6,8 @@
             "server": "localhost",
             "driver": "PostgreSQL",
             "name": "real_estate",
-            "connectString": "***REMOVED***"
+            "connectString": "POSTGRES"
         }
-    ]
+    ],
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }

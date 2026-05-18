@@ -9,9 +9,17 @@ from utils.secrets import get_secret
 
 load_dotenv()
 
-client = MongoClient(get_secret('MONGO_URI','mongo-uri'))
-db = client["real_estate_db"]
-raw_collection = db["raw_listings"]
+_raw_collection = None
+
+
+def get_raw_collection():
+    """Create the Mongo collection lazily so imports stay side-effect light."""
+    global _raw_collection
+    if _raw_collection is None:
+        client = MongoClient(get_secret('MONGO_URI','mongo-uri'))
+        db = client["real_estate_db"]
+        _raw_collection = db["raw_listings"]
+    return _raw_collection
 
 
 
@@ -46,6 +54,7 @@ def check_and_handle(normalized_row: dict, checksum: str) -> str:
         "updated"   → same link but content changed, store as new version
     """
     link = normalized_row.get("link", "")
+    raw_collection = get_raw_collection()
 
     # look for any existing listing with same link
     existing = raw_collection.find_one({"link": link})
@@ -59,4 +68,3 @@ def check_and_handle(normalized_row: dict, checksum: str) -> str:
         return ListingStatus.DUPLICATE
 
     return ListingStatus.UPDATED
-
