@@ -6,11 +6,11 @@ from typing import List, Dict, Any, Tuple
 from pymongo import MongoClient, ASCENDING
 from dotenv import load_dotenv
 
-from data.normalize import normalize_row
-from data.checksum import generate_checksum
-from data.schema import Property
-from data.rules import PropertyRules
-from data.property_logger import property_logger, logger
+from data.processing.normalize import normalize_row
+from data.validation.checksum import generate_checksum
+from data.validation.schema import Property
+from data.validation.rules import PropertyRules
+from data.ingestion.property_logger import PropertyLogger, logger
 from utils.secrets import get_secret
 load_dotenv()
 
@@ -39,6 +39,7 @@ class DataPipeline:
             self.rejected_listings = self.db["rejected_listings"]
             self.duplicate_listings = self.db["duplicate_listings"]
             self.processing_stats = self.db["processing_stats"]
+            self.property_logger = PropertyLogger()
 
             self.raw_listings.create_index(
                 [("checksum", ASCENDING)],
@@ -100,11 +101,11 @@ class DataPipeline:
             is_valid, errors = PropertyRules.validate(prop)
             if not is_valid:
                 logger.warning(f"❌ Gate 2 failed | Link: {link} | Rules: {errors}")
-                property_logger.log_rejection(prop, errors)
+                self.property_logger.log_rejection(prop, errors)
                 return True, "rejected", {"errors": errors}
 
             # 5. store approved listing
-            property_logger.log_approved(prop, checksum)
+            self.property_logger.log_approved(prop, checksum)
             return True, "new", {"link": link}
 
         except Exception as e:
@@ -135,8 +136,16 @@ class DataPipeline:
         return results
 
 
-pipeline = DataPipeline()
+_pipeline = None
+
+
+def get_pipeline() -> DataPipeline:
+    """Create the pipeline lazily so importing the package does not connect to DBs."""
+    global _pipeline
+    if _pipeline is None:
+        _pipeline = DataPipeline()
+    return _pipeline
 
 
 def ingest(raw_listings: List[Dict[str, Any]]) -> Dict[str, Any]:
-    return pipeline.process_batch(raw_listings)
+    return get_pipeline().process_batch(raw_listings)

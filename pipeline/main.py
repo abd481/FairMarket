@@ -1,19 +1,20 @@
 # In the name of Allah , The most gracious , The most merciful 
 import asyncio
 import json
-import sys
-import os
 import random
 import requests
+import sys
 from pathlib import Path
 from prefect import flow, task
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
-from engine import scrape
-from data.transform import transform
-from data.ingest import ingest
-from data.cleaning import clean
+from scrapers.engine import scrape
+from data.processing.transform import transform
+from data.ingestion.ingest import ingest
+from data.processing.cleaning import clean
 from utils.secrets import get_secret
 
 def load_config(path):
@@ -78,8 +79,8 @@ def run_clean():
 )
 async def main():
     configs = [
-        load_config(Path(__file__).parent / "configs" / "bayut.json"),
-        load_config(Path(__file__).parent / "configs" / "olx.json"),
+        load_config(PROJECT_ROOT / "scrapers" / "configs" / "bayut.json"),
+        load_config(PROJECT_ROOT / "scrapers" / "configs" / "olx.json"),
     ]
 
     all_listings = []

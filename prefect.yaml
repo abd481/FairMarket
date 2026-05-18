@@ -32,7 +32,7 @@ deployments:
   tags: []
   concurrency_limit: null
   description: null
-  entrypoint: Scrapers/main.py:main
+  entrypoint: pipeline/main.py:main
   parameters: {}
   work_pool:
     name: data-pipeline-pool

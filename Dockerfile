@@ -28,4 +28,4 @@ RUN playwright install-deps firefox
 # Copy project files
 COPY . .
 
-CMD ["python3", "Scrapers/main.py"]
+CMD ["python3", "-m", "pipeline.main"]

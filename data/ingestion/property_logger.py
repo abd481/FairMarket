@@ -239,6 +239,3 @@ class PropertyLogger:
             logger.error(f"Failed to retrieve stats: {str(e)}")
             return {}
 
-
-# Global logger instance (use this throughout your app)
-property_logger = PropertyLogger()

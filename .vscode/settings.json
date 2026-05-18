@@ -6,7 +6,8 @@
             "server": "localhost",
             "driver": "PostgreSQL",
             "name": "real_estate",
-            "connectString": "postgresql://postgres.qjnlhsmfoaehsvswqeac:abdandwalaa@aws-0-eu-west-1.pooler.supabase.com:6543/postgres"
+            "connectString": "POSTGRES"
         }
-    ]
+    ],
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }

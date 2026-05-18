@@ -8,10 +8,25 @@ from sqlalchemy import create_engine, text
 from utils.secrets import get_secret
 load_dotenv()
 
-mongo_client = MongoClient(get_secret('MONGO_URI','mongo-uri'))
-raw_collection = mongo_client["real_estate_db"]["raw_listings"]
+_raw_collection = None
+_engine = None
 
-engine = create_engine(get_secret('POSTGRES','postgres'))
+
+def get_raw_collection():
+    """Create the Mongo collection lazily so imports do not open DB connections."""
+    global _raw_collection
+    if _raw_collection is None:
+        mongo_client = MongoClient(get_secret('MONGO_URI','mongo-uri'))
+        _raw_collection = mongo_client["real_estate_db"]["raw_listings"]
+    return _raw_collection
+
+
+def get_engine():
+    """Create the SQLAlchemy engine lazily so imports do not require secrets."""
+    global _engine
+    if _engine is None:
+        _engine = create_engine(get_secret('POSTGRES','postgres'))
+    return _engine
 
 CREATE_TABLE = """
 CREATE TABLE IF NOT EXISTS properties (
@@ -57,7 +72,9 @@ def safe_beds(value):
 
 def transform():
 
-    with engine.connect() as conn:
+    raw_collection = get_raw_collection()
+
+    with get_engine().connect() as conn:
 
         conn.execute(text(CREATE_TABLE))
         conn.commit()
