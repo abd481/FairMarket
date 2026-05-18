@@ -1,124 +1,85 @@
-THE MOST IMPORTANT NOTE IS | Walaa Magdy is the owner and the author of this Project ♥️ (ايه رايك بقي 😂)
-
-ANOTHER IMPORTANT NOTE Walaa Magdy (she's my teammate and my friend and also she's Nice and a little COLDD 🥶)
-
-
+Project: Real Estate ML System
+Authors: Walaa Magdy and Abdelrahman Sayed
+Note: Walaa Magdy is the owner and the author of this project (and she's much nice and a little cold 🥶)
 
 
-What we have so far 
+PREFECT STARTUP (run 5 minutes before scheduled time)
 
-engine.py — Playwright scraper ✅
-normalize.py — field mapping ✅
-schema.py — Pydantic validation (Gate 1) ✅
-rules.py — business rules (Gate 2) ✅
-ingest.py — orchestrates normalize → dedupe → validate → MongoDB ✅
-transform.py — MongoDB → PostgreSQL ✅
-main.py — runs everything ✅
-cleaning.ipynb — cleans PostgreSQL data → clean_properties ✅
+Open two terminals and run one command in each.
 
+Terminal 1 (run first):
+cd "/Users/abdelrahmansayed/Real estate Project" && poetry run prefect server start
+
+Terminal 2 (run 5 seconds after Terminal 1):
+cd "/Users/abdelrahmansayed/Real estate Project" && poetry run prefect worker start --pool "data-pipeline-pool"
 
 
-DATA PIPELINE OVERVIEW
+PROJECT FILES
+
+engine.py          Playwright scraper
+normalize.py       Field mapping
+schema.py          Pydantic validation (Gate 1)
+rules.py           Business rules (Gate 2)
+ingest.py          Orchestrates normalize, dedupe, validate, MongoDB
+transform.py       MongoDB to PostgreSQL
+cleaning.py        Cleans PostgreSQL data into clean_properties table
+main.py            Runs everything
+
 
 SYSTEM FLOW
 
-Scraper → Validation Pipeline → MongoDB
-
-⸻
-
-HOW THE SYSTEM WORKS
-
-1. Scraper runs and collects raw listings from websites
-2. Raw data is sent to the ingestion pipeline
-3. Each listing goes through processing steps:
-    * Normalize field names
-    * Generate checksum for deduplication
-    * Detect state: NEW, DUPLICATE, or UPDATED
-    * Apply schema validation (Gate 1)
-    * Apply business rules validation (Gate 2)
-    * Store result in MongoDB
-    * Log processing results
-
-⸻
-
-DATA FLOW PIPELINE
-
 Scraper
-→ normalize
-→ checksum generation
-→ deduplication check
-→ Gate 1 (schema validation)
-→ Gate 2 (business rules)
-→ MongoDB storage
+normalize
+checksum generation
+deduplication check
+Gate 1 - schema validation
+Gate 2 - business rules
+MongoDB storage
+Transform to PostgreSQL
+Clean to clean_properties
 
-⸻
 
 PIPELINE COMPONENTS
 
-normalize.py
-Maps raw scraped fields into standard schema
+normalize.py         Maps raw scraped fields into standard schema
+checksum.py          Detects whether listing is NEW, DUPLICATE, or UPDATED
+schema.py            Validates and converts raw data types into structured format
+rules.py             Applies business logic validation rules
+property_logger.py   Handles logging of approved and rejected listings
+ingest.py            Main orchestrator that runs the full pipeline
 
-checksum.py
-Detects whether listing is NEW, DUPLICATE, or UPDATED
-
-schema.py
-Validates and converts raw data types into structured format
-
-rules.py
-Applies business logic validation rules
-
-property_logger.py
-Handles logging of approved and rejected listings
-
-ingest.py
-Main orchestrator that runs the full pipeline
-
-⸻
 
 PROCESSING STEPS
 
-1. Raw data is collected by scraper
-2. Data is normalized into a standard format
-3. A checksum is generated using key fields
+1. Raw data collected by scraper
+2. Data normalized into standard format
+3. Checksum generated using key fields
 4. System checks listing status:
-    * If DUPLICATE → skip and store in duplicate collection
-    * If NEW or UPDATED → continue processing
+   - DUPLICATE: skip and store in duplicate collection
+   - NEW or UPDATED: continue processing
 5. Gate 1 validation:
-    * Converts strings to proper types
-    * Rejects invalid formats
+   - Converts strings to proper types
+   - Rejects invalid formats
 6. Gate 2 validation:
-    * Ensures business logic is correct
-    * Examples: price > 0, area > 0, valid links
+   - Ensures business logic is correct
+   - Examples: price > 0, area > 0, valid links
 7. Final storage decision:
-    * Approved → stored in raw_listings
-    * Rejected → stored in rejected_listings
+   - Approved: stored in raw_listings
+   - Rejected: stored in rejected_listings
 
-⸻
 
 MONGODB COLLECTIONS
 
-scraped_raw
-Raw unprocessed scraper output
+raw_listings          Validated and approved listings
+rejected_listings     Listings that failed validation with reasons
+duplicate_listings    Exact duplicates detected during processing
+property_stats        Pipeline statistics and metrics per source
 
-raw_listings
-Validated and approved listings ready for use
-
-rejected_listings
-Listings that failed validation with reasons
-
-duplicate_listings
-Exact duplicates detected during processing
-
-property_stats
-Pipeline statistics and metrics per source
-
-listing_versions
-Historical versions of updated listings
-
-⸻
 
 IMPORTANT NOTES
 
-* CSV files are only used for local testing
-* Production system uses MongoDB only
-* Duplicate listings are stored for tracking, not processed further
+CSV files are only used for local testing
+Production system uses MongoDB only
+Duplicate listings are stored for tracking only
+Pipeline runs daily at 12:00 PM Cairo time
+Scrapes from Bayut and OLX, 5 to 10 pages each per run

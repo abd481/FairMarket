@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
-
+from utils.secrets import get_secret
 load_dotenv()
 
 KNOWN_CITIES = [
@@ -17,7 +17,7 @@ KNOWN_CITIES = [
 
 
 def get_engine():
-    return create_engine(os.getenv("POSTGRES"))
+    return create_engine(get_secret("POSTGRES",'postgres'))
 
 
 def load_data() -> pd.DataFrame:
@@ -133,7 +133,7 @@ def save_data(df: pd.DataFrame) -> None:
     print(f"✅ Saved {len(df)} rows to clean_properties")
 
 
-def run():
+def clean():
     df = load_data()
     df = clean_price_per_sqm(df)
     df = clean_baths(df)
@@ -146,6 +146,5 @@ def run():
     df = drop_columns(df)
     save_data(df)
 
-
 if __name__ == "__main__":
-    run()
+    clean()

@@ -6,10 +6,11 @@ import random
 import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
-
+from utils.secrets import get_secret
 load_dotenv()
 
-client = MongoClient(os.getenv("MONGO_URI"))
+mongo_uri = get_secret('MONGO_URI','mongo-uri')
+client = MongoClient(mongo_uri)
 db = client["real_estate_db"]
 raw_collection = db["raw_listings"]
 

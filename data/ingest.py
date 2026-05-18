@@ -11,7 +11,7 @@ from data.checksum import generate_checksum
 from data.schema import Property
 from data.rules import PropertyRules
 from data.property_logger import property_logger, logger
-
+from utils.secrets import get_secret
 load_dotenv()
 
 
@@ -28,7 +28,7 @@ class DataPipeline:
 
     def __init__(self):
         try:
-            mongo_uri = os.getenv("MONGO_URI")
+            mongo_uri = get_secret('MONGO_URI','mongo-uri')
             if not mongo_uri:
                 raise ValueError("MONGO_URI missing")
 
