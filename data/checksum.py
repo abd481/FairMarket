@@ -5,10 +5,11 @@ from datetime import datetime
 from pymongo import MongoClient
 from enum import Enum
 from dotenv import load_dotenv
+from utils.secrets import get_secret
 
 load_dotenv()
 
-client = MongoClient(os.getenv("MONGO_URI"))
+client = MongoClient(get_secret('MONGO_URI','mongo-uri'))
 db = client["real_estate_db"]
 raw_collection = db["raw_listings"]
 

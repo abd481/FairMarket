@@ -5,13 +5,13 @@ from datetime import datetime
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from sqlalchemy import create_engine, text
-
+from utils.secrets import get_secret
 load_dotenv()
 
-mongo_client = MongoClient(os.getenv("MONGO_URI"))
+mongo_client = MongoClient(get_secret('MONGO_URI','mongo-uri'))
 raw_collection = mongo_client["real_estate_db"]["raw_listings"]
 
-engine = create_engine(os.getenv("POSTGRES"))
+engine = create_engine(get_secret('POSTGRES','postgres'))
 
 CREATE_TABLE = """
 CREATE TABLE IF NOT EXISTS properties (

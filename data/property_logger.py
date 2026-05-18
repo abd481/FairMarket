@@ -5,7 +5,7 @@ from datetime import datetime
 from pymongo import MongoClient
 from typing import List, Optional
 from dotenv import load_dotenv
-
+from utils.secrets import get_secret
 # Load environment variables
 load_dotenv()
 
@@ -55,7 +55,9 @@ class PropertyLogger:
     def __init__(self):
         """Initialize MongoDB connection and collections."""
         try:
-            mongo_uri = os.getenv('MONGO_URI')
+            mongo_uri = get_secret('MONGO_URI','mongo-uri')
+            
+
             if not mongo_uri:
                 logger.warning("MONGO_URI not found in .env file")
                 self.client = None
