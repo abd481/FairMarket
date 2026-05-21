@@ -25,7 +25,7 @@ pull:
       script: pip install poetry
       directory: Real-estate-end-to-end-System--main
   - prefect.deployments.steps.run_shell_script:
-      script: poetry install --no-interaction
+      script: poetry config virtualenvs.in-project true && poetry install --no-root --no-interaction
       directory: Real-estate-end-to-end-System--main
 
 # the deployments section allows you to provide configuration
