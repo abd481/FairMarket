@@ -10,12 +10,7 @@ requires-python = ">=3.11,<3.15"
 [tool.poetry]
 name = "real-estate-pipeline"
 version = "0.1.0"
-packages = [
-    {include = "scrapers"},
-    {include = "data"},
-    {include = "utils"},
-    {include = "pipeline"},
-]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.15"
