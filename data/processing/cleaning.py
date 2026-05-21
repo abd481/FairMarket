@@ -32,11 +32,30 @@ def clean_price_per_sqm(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def clean_baths(df: pd.DataFrame) -> pd.DataFrame:
-    df['baths'] = pd.to_numeric(df['baths'], errors='coerce')
-    df['baths'] = df.groupby('property_type')['baths'].transform(
+    # make a copy so we don't modify the original dataframe
+    df = df.copy()
+
+    # convert baths column to numeric
+    # invalid values become NaN
+    df['baths'] = pd.to_numeric(
+        df['baths'],
+        errors='coerce'
+    )
+
+    # fill missing baths values using the median
+    # inside each (property_type, area) group
+    df['baths'] = df.groupby(
+        ['property_type', 'area']
+    )['baths'].transform(
         lambda x: x.fillna(x.median())
     )
+
+    # remove rows where baths is still NaN
+    df = df.dropna(subset=['baths'])
+
+    # convert to integer
     df['baths'] = df['baths'].astype(int)
+
     return df
 
 
