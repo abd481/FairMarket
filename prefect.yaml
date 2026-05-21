@@ -1,21 +1,9 @@
-# Welcome to your prefect.yaml file! You can use this file for
-# storing and managing configuration for deploying your flows.
-# We recommend committing this file to source control along
-# with your flow code.
-
-# Generic metadata about this project
 name: Real estate Project
 prefect-version: 3.7.0
 
-# build section allows you to manage and build docker images
 build: null
-
-# push section allows you to manage if and how this project
-# is uploaded to remote locations
 push: null
 
-# pull section allows you to provide instructions for cloning
-# this project in remote locations
 pull:
   - prefect.deployments.steps.git_clone:
       repository: https://github.com/abd481/Real-estate-end-to-end-System-
@@ -25,11 +13,9 @@ pull:
       script: pip install poetry
       directory: Real-estate-end-to-end-System--main
   - prefect.deployments.steps.run_shell_script:
-      script: poetry config virtualenvs.in-project true && poetry install --no-root --no-interaction
+      script: poetry config virtualenvs.in-project true && poetry install --only main --no-interaction
       directory: Real-estate-end-to-end-System--main
 
-# the deployments section allows you to provide configuration
-# for deploying flows
 deployments:
   - name: data_pipeline
     version: null
