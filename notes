@@ -87,69 +87,46 @@ Scrapes from Bayut and OLX, 5 to 10 pages each per run
 
 New folder Structuer 
 
-
-real-estate-project/
-│
-├── src/
-│   ├── __init__.py
-│   │
-│   ├── data/
-│   │   ├── __init__.py
-│   │   │
-│   │   ├── ingestion/
-│   │   │   ├── __init__.py
-│   │   │   ├── scraper.py          ← engine.py renamed
-│   │   │   └── configs/
-│   │   │       ├── bayut.json
-│   │   │       └── olx.json
-│   │   │
-│   │   ├── processing/
-│   │   │   ├── __init__.py
-│   │   │   ├── ingest.py           ← from data/ingest.py
-│   │   │   ├── transform.py        ← from data/transform.py
-│   │   │   ├── cleaning.py         ← from data/cleaning.py
-│   │   │   ├── normalize.py        ← from data/normalize.py
-│   │   │   └── property_logger.py  ← from data/property_logger.py
-│   │   │
-│   │   └── validation/
-│   │       ├── __init__.py
-│   │       ├── rules.py            ← from data/rules.py
-│   │       ├── schema.py           ← from data/schema.py
-│   │       └── checksum.py         ← from data/checksum.py
-│   │
-│   └── utils/
-│       ├── __init__.py
-│       └── secrets.py              ← from utils/secrets.py
-│
-├── pipelines/
-│   ├── __init__.py
-│   └── elt_pipeline.py             ← main.py renamed & updated
-│
-├── tests/
-│   ├── __init__.py
-│   ├── conftest.py                 ← Shared test fixtures
-│   │
-│   ├── unit/
-│   │   ├── __init__.py
-│   │   ├── test_scraper.py
-│   │   ├── test_cleaning.py
-│   │   └── test_validation.py
-│   │
-│   └── integration/
-│       ├── __init__.py
-│       └── test_pipeline.py
-│
-├── configs/                         ← Root-level configs
-│   └── (future MLflow, Airflow configs)
-│
-├── data/                            ← Keep as-is for logs, raw files
-│   ├── logs/
-│   ├── notebooks/
-│   └── pycache/
-│
-├── .env                             ← Environment variables
-├── .gitignore
-├── pyproject.toml
-├── poetry.lock
+├── .env
+├── .prefectignore
+├── .vscode/
+├── Docker-compose.yaml
+├── Dockerfile
 ├── README.md
-└── Docker-compose.yaml
+├── poetry.lock
+├── prefect.yaml
+├── pyproject.toml
+├── notes
+│
+├── pipeline/
+│   └── main.py
+│
+├── scrapers/
+│   ├── engine.py
+│   └── configs/
+│       ├── bayut.json
+│       └── olx.json
+│
+├── data/
+│   ├── ingestion/
+│   │   ├── ingest.py
+│   │   └── property_logger.py
+│   ├── processing/
+│   │   ├── cleaning.py
+│   │   ├── normalize.py
+│   │   └── transform.py
+│   └── validation/
+│       ├── checksum.py
+│       ├── rules.py
+│       └── schema.py
+│
+├── utils/
+│   └── secrets.py
+│
+├── notebooks/
+│   ├── analysis.ipynb
+│   ├── cleaning.ipynb
+│   └── mlcleaning.ipynb
+│
+└── logs/
+    └── property_processing.log
