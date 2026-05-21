@@ -18,6 +18,9 @@ pull:
   - prefect.deployments.steps.run_shell_script:
       script: poetry install --no-interaction
       directory: Real-estate-end-to-end-System--main
+  - prefect.deployments.steps.run_shell_script:
+      script: poetry run playwright install --with-deps firefox
+      directory: Real-estate-end-to-end-System--main
 
 deployments:
   - name: data_pipeline
