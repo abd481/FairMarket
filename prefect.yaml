@@ -13,7 +13,7 @@ pull:
       script: pip install "poetry==2.3.2"
       directory: Real-estate-end-to-end-System--main
   - prefect.deployments.steps.run_shell_script:
-      script: poetry config virtualenvs.in-project true
+      script: poetry config virtualenvs.create false
       directory: Real-estate-end-to-end-System--main
   - prefect.deployments.steps.run_shell_script:
       script: poetry install --no-interaction
