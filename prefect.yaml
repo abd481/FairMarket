@@ -27,6 +27,8 @@ pull:
   - prefect.deployments.steps.run_shell_script:
       script: poetry install --no-root --no-interaction
       directory: Real-estate-end-to-end-System--main
+      env:
+        PYTHONPATH: /opt/prefect/Real-estate-end-to-end-System--main
 
 # the deployments section allows you to provide configuration
 # for deploying flows
