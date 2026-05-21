@@ -27,8 +27,6 @@ pull:
   - prefect.deployments.steps.run_shell_script:
       script: poetry install --no-root --no-interaction
       directory: Real-estate-end-to-end-System--main
-      env:
-        PYTHONPATH: /opt/prefect/Real-estate-end-to-end-System--main
 
 # the deployments section allows you to provide configuration
 # for deploying flows
@@ -43,7 +41,9 @@ deployments:
     work_pool:
       name: data-pipeline-pool
       work_queue_name: null
-      job_variables: {}
+      job_variables:
+        env:
+          PYTHONPATH: /opt/prefect/Real-estate-end-to-end-System--main
     schedules:
       - cron: 0 12 * * *
         timezone: Africa/Cairo
