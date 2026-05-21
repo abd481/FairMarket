@@ -22,7 +22,7 @@ pull:
       branch: main
       access_token: '{{ prefect.blocks.secret.deployment-data-pipeline-real-estate-pipeline-repo-token }}'
   - prefect.deployments.steps.run_shell_script:
-      script: pip install poetry && python -m poetry install --no-root --no-interaction
+      script: pip install poetry && poetry install --no-root --no-interaction
       directory: Real-estate-end-to-end-System--main
 
 # the deployments section allows you to provide configuration
