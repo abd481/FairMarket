@@ -77,6 +77,20 @@ def clean_beds(df: pd.DataFrame) -> pd.DataFrame:
     df['beds'] = df['beds'].astype(int)
     return df
 
+def clean_amenities(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+
+    df['amenities'] = df['amenities'].replace('', pd.NA)
+    df['amenities'] = df['amenities'].fillna('Not Mentioned')
+
+    def parse_amenities(text):
+        if pd.isna(text) or text == 'Not Mentioned':
+            return 0
+        return len([item.strip() for item in str(text).split(',') if item.strip()])
+
+    df['amenity_count'] = df['amenities'].apply(parse_amenities)
+
+    return df
 
 def clean_furnishing(df: pd.DataFrame) -> pd.DataFrame:
     df['furnishing'] = df['furnishing'].fillna('Not Specified')
@@ -158,6 +172,7 @@ def clean():
     df = clean_baths(df)
     df = clean_studio(df)
     df = clean_beds(df)
+    df = clean_amenities(df)
     df = clean_furnishing(df)
     df = clean_property_type(df)
     df = clean_transaction_type(df)
