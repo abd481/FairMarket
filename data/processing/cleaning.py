@@ -165,6 +165,37 @@ def save_data(df: pd.DataFrame) -> None:
     )
     print(f"✅ Saved {len(df)} rows to clean_properties")
 
+def validate(df: pd.DataFrame) -> pd.DataFrame:
+    initial_count = len(df)
+    
+    # 1. drop nulls in critical columns
+    critical_columns = ['price', 'area', 'beds', 'baths', 'property_type', 'city']
+    df = df.dropna(subset=critical_columns)
+    
+    # 2. drop invalid price and area
+    df = df[df['price'] > 0]
+    df = df[df['area'] > 0]
+    
+    # 3. drop negative beds and baths
+    df = df[df['beds'] >= 0]
+    df = df[df['baths'] >= 0]
+    
+    # 4. drop unexpected transaction types
+    df = df[df['transaction_type'] == 'sale']
+    
+    # 5. drop negative amenity_count
+    df = df[df['amenity_count'] >= 0]
+    
+    # 6. drop duplicates
+    df = df.drop_duplicates()
+    
+    dropped = initial_count - len(df)
+    if dropped > 0:
+        print(f"⚠️ Validation dropped {dropped} bad rows — {len(df)} rows remaining")
+    else:
+        print(f"✅ All {len(df)} rows passed validation")
+    
+    return df
 
 def clean():
     df = load_data()
@@ -178,6 +209,7 @@ def clean():
     df = clean_transaction_type(df)
     df = clean_location(df, use_known_cities=True)
     df = drop_columns(df)
+    df = validate(df)
     save_data(df)
 
 if __name__ == "__main__":
