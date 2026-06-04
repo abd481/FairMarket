@@ -98,10 +98,19 @@ def clean_furnishing(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def clean_property_type(df: pd.DataFrame) -> pd.DataFrame:
+    mapping = {
+        'Town House': 'Townhouse',
+        'Standalone Villa': 'Stand Alone Villa',
+        'Ivilla': 'Stand Alone Villa',
+        'Roof': 'Other',
+        'Other Residential': 'Other',
+        'Room': 'Other'
+    }
     df['property_type'] = (
         df['property_type']
         .str.strip()
         .str.title()
+        .replace(mapping)
     )
     return df
 
@@ -163,7 +172,7 @@ def save_data(df: pd.DataFrame) -> None:
         if_exists='replace',
         index=False
     )
-    print(f"✅ Saved {len(df)} rows to clean_properties")
+    # print(f"✅ Saved {len(df)} rows to clean_properties")
 
 def validate(df: pd.DataFrame) -> pd.DataFrame:
     initial_count = len(df)
