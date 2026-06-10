@@ -224,7 +224,7 @@ async def scrape(config, max_pages=2):
             return []
 
         # ── STEP 3: Scrape detail pages in batches ───────────────────────────
-        BATCH_SIZE = 6
+        BATCH_SIZE = 7
         all_data = []
         failed_links = []
 

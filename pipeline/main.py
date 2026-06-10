@@ -86,7 +86,7 @@ async def main():
     all_listings = []
 
     for config in configs:
-        pages = random.randint(3,5)
+        pages = random.randint(5,7)
         print(f"🔄 Scraping {pages} pages...")
         listings = await run_scrape(config, pages)
         if listings:

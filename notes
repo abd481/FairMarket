@@ -3,15 +3,6 @@ Authors: Walaa Magdy and Abdelrahman Sayed
 Note: Walaa Magdy is the owner and the author of this project (and she's much nice and a little cold 🥶)
 
 
-PREFECT STARTUP (run 5 minutes before scheduled time)
-
-Open two terminals and run one command in each.
-
-Terminal 1 (run first):
-cd "/Users/abdelrahmansayed/Real estate Project" && poetry run prefect server start
-
-Terminal 2 (run 5 seconds after Terminal 1):
-cd "/Users/abdelrahmansayed/Real estate Project" && poetry run prefect worker start --pool "data-pipeline-pool"
 
 
 PROJECT FILES
@@ -77,12 +68,10 @@ property_stats        Pipeline statistics and metrics per source
 
 
 IMPORTANT NOTES
-
-CSV files are only used for local testing
-Production system uses MongoDB only
+ 
 Duplicate listings are stored for tracking only
 Pipeline runs daily at 12:00 PM Cairo time
-Scrapes from Bayut and OLX, 5 to 10 pages each per run
+Scrapes from Bayut and OLX, 3 to 5 pages each per run
 
 
 New folder Structuer 
@@ -130,3 +119,13 @@ New folder Structuer
 │
 └── logs/
     └── property_processing.log
+
+
+
+
+
+
+
+Technial Debt (Really IMPORTANT) 
+
+in Cleaning phase we do feat engineering and that is  Technial debt must be solved later 
