@@ -1,7 +1,5 @@
 # In the name of Allah , The most gracious , The most merciful 
 import hashlib
-import os
-from datetime import datetime
 from pymongo import MongoClient
 from enum import Enum
 from dotenv import load_dotenv
