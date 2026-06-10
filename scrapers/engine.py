@@ -3,24 +3,12 @@
 from playwright.async_api import async_playwright
 import asyncio
 import random
-import os
 from dotenv import load_dotenv
-from pymongo import MongoClient
-from utils.secrets import get_secret
+from utils.db import get_collection
 load_dotenv()
 
-_raw_collection = None
-
-
 def get_raw_collection():
-    """Create the Mongo collection lazily so imports do not open DB connections."""
-    global _raw_collection
-    if _raw_collection is None:
-        mongo_uri = get_secret('MONGO_URI','mongo-uri')
-        client = MongoClient(mongo_uri)
-        db = client["real_estate_db"]
-        _raw_collection = db["raw_listings"]
-    return _raw_collection
+    return get_collection("raw_listings")
 
 
 def clean(text):
@@ -98,7 +86,7 @@ async def extract_details(page, link, config):
     """Navigate to a listing page and extract all configured fields + amenities."""
     try:
         await page.goto(link, wait_until="domcontentloaded", timeout=20000)
-        await asyncio.sleep(random.uniform(0.5, 1.5))
+        await asyncio.sleep(random.uniform(1.5,2))
 
         data = {}
         for key, selector in config["detail"]["fields"].items():
@@ -144,7 +132,7 @@ async def scrape_batch(browser, links, config, user_agents):
         await page.route("**/*.{png,jpg,jpeg,webp,gif,svg}", block_images)
 
         contexts.append(context)
-        await asyncio.sleep(random.uniform(0.1, 0.4))
+        await asyncio.sleep(random.uniform(0.5,1))
 
         # Each task captures its own `page` — no shared state between tasks
         tasks.append(extract_details(page, link, config))
@@ -183,16 +171,16 @@ async def scrape(config, max_pages=2):
         for i in range(1, max_pages + 1):
             url = config["base_url"] + config["listing"]["pagination_url"].format(page=i)
 
-            # Retry up to 3 times per page in case of network issues or blocks
+            # Retry up to 4 times per page in case of network issues or blocks
             page_loaded = False
-            for attempt in range(3):
+            for attempt in range(4):
                 try:
                     await page.goto(url, wait_until="domcontentloaded", timeout=30000)
                     page_loaded = True
                     break
                 except Exception:
-                    if attempt == 2:
-                        print(f"⚠️ Skipping page {i} — failed after 3 attempts")
+                    if attempt == 3:
+                        print(f"⚠️ Skipping page {i} — failed after 4 attempts")
                         break
                     wait = random.uniform(4, 8)
                     print(f"⚠️ Page {i} failed, retrying in {wait:.1f}s (attempt {attempt + 2}/3)...")
@@ -264,14 +252,14 @@ async def scrape(config, max_pages=2):
         # ── STEP 4: Retry failed links once ──────────────────────────────────
         if failed_links:
             print(f"\n🔄 Retrying {len(failed_links)} failed links...")
-            await asyncio.sleep(3)
+            await asyncio.sleep(5)
 
             for i in range(0, len(failed_links), BATCH_SIZE):
                 batch = failed_links[i:i + BATCH_SIZE]
                 retry_data = await scrape_batch(browser, batch, config, USER_AGENTS)
                 all_data.extend(retry_data)
                 print(f"Retry progress: {len(retry_data)}/{len(batch)} recovered")
-                await asyncio.sleep(random.uniform(2, 3.5))
+                await asyncio.sleep(random.uniform(3, 5))
 
         await browser.close()
 
