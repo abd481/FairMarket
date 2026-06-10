@@ -3,7 +3,7 @@
 import os
 from datetime import datetime
 from typing import List, Dict, Any, Tuple
-from pymongo import MongoClient, ASCENDING
+from pymongo import ASCENDING
 from dotenv import load_dotenv
 
 from data.processing.normalize import normalize_row
@@ -12,6 +12,7 @@ from data.validation.schema import Property
 from data.validation.rules import PropertyRules
 from data.ingestion.property_logger import PropertyLogger, logger
 from utils.secrets import get_secret
+from utils.db import get_database
 load_dotenv()
 
 
@@ -28,12 +29,7 @@ class DataPipeline:
 
     def __init__(self):
         try:
-            mongo_uri = get_secret('MONGO_URI','mongo-uri')
-            if not mongo_uri:
-                raise ValueError("MONGO_URI missing")
-
-            self.client = MongoClient(mongo_uri)
-            self.db = self.client["real_estate_db"]
+            self.db = get_database()
 
             self.raw_listings = self.db["raw_listings"]
             self.rejected_listings = self.db["rejected_listings"]

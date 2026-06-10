@@ -2,10 +2,9 @@
 import logging
 import os
 from datetime import datetime
-from pymongo import MongoClient
 from typing import List, Optional
 from dotenv import load_dotenv
-from utils.secrets import get_secret
+from utils.db import get_database
 # Load environment variables
 load_dotenv()
 
@@ -53,28 +52,15 @@ class PropertyLogger:
     """
     
     def __init__(self):
-        """Initialize MongoDB connection and collections."""
+        """Initialize MongoDB collections."""
         try:
-            mongo_uri = get_secret('MONGO_URI','mongo-uri')
-            
-
-            if not mongo_uri:
-                logger.warning("MONGO_URI not found in .env file")
-                self.client = None
-                self.db = None
-                self.rejected_collection = None
-                self.raw_collection = None
-                self.stats_collection = None
-            else:
-                self.client = MongoClient(mongo_uri)
-                self.db = self.client["real_estate_db"]
-                self.rejected_collection = self.db["rejected_listings"]
-                self.raw_collection = self.db["raw_listings"]
-                self.stats_collection = self.db["property_stats"]
-                logger.info("✅ Connected to MongoDB successfully")
+            self.db = get_database()
+            self.rejected_collection = self.db["rejected_listings"]
+            self.raw_collection = self.db["raw_listings"]
+            self.stats_collection = self.db["property_stats"]
+            logger.info("✅ Connected to MongoDB successfully")
         except Exception as e:
             logger.error(f"❌ Failed to connect to MongoDB: {str(e)}")
-            self.client = None
             self.db = None
             self.rejected_collection = None
             self.raw_collection = None

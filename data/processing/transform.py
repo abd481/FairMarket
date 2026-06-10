@@ -1,24 +1,17 @@
 # In the name of Allah, The Most Gracious, The Most Merciful
 
-import os
 from datetime import datetime
 from dotenv import load_dotenv
-from pymongo import MongoClient
 from sqlalchemy import create_engine, text
 from utils.secrets import get_secret
+from utils.db import get_collection
 load_dotenv()
 
-_raw_collection = None
 _engine = None
 
 
 def get_raw_collection():
-    """Create the Mongo collection lazily so imports do not open DB connections."""
-    global _raw_collection
-    if _raw_collection is None:
-        mongo_client = MongoClient(get_secret('MONGO_URI','mongo-uri'))
-        _raw_collection = mongo_client["real_estate_db"]["raw_listings"]
-    return _raw_collection
+    return get_collection("raw_listings")
 
 
 def get_engine():
