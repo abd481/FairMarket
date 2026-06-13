@@ -15,7 +15,7 @@ from scrapers.engine import scrape
 from data.processing.transform import transform
 from data.ingestion.ingest import ingest
 from data.processing.cleaning import clean
-from data.processing.run_preprocessing import run_preprocessing
+from pipeline.run_preprocessing import run_preprocessing
 from utils.secrets import get_secret
 
 def load_config(path):
