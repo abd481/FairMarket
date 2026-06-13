@@ -1,0 +1,14 @@
+.venv/
+.git/
+.gitignore
+__pycache__/
+*.pyc
+.env
+.env.example
+notebooks/
+logs/
+artifacts/
+.pytest_cache/
+.prefectignore
+.vscode/
+.DS_Store
