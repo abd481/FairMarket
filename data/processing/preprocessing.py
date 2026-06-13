@@ -166,7 +166,8 @@ class CountBasedHierarchicalTargetEncoder(BaseEstimator, TransformerMixin):
 
             result.append(encoded)
 
-        return np.array(result).reshape(-1, 1)
+        X[self.col] = result
+        return X
 
 
 class AmenityScoreTransformer(BaseEstimator, TransformerMixin):
@@ -217,7 +218,7 @@ def build_preprocessing_pipeline():
     target_encoder = CountBasedHierarchicalTargetEncoder(col='location')
 
     preprocessor = ColumnTransformer([
-        ('area_log', FunctionTransformer(np.log1p, np.expm1), ['area']),
+        ('area_log', FunctionTransformer(np.log1p, np.expm1, feature_names_out='one-to-one'), ['area']),
         ('ohe', OneHotEncoder(drop='first', sparse_output=False), ['property_type', 'furnishing']),
         ('amenities', AmenityScoreTransformer(), ['amenities']),
     ], remainder='passthrough')
