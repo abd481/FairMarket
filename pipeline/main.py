@@ -15,6 +15,7 @@ from scrapers.engine import scrape
 from data.processing.transform import transform
 from data.ingestion.ingest import ingest
 from data.processing.cleaning import clean
+from data.processing.run_preprocessing import run_preprocessing
 from utils.secrets import get_secret
 
 def load_config(path):
@@ -72,6 +73,11 @@ def run_clean():
     clean()
 
 
+@task(name="preprocess_features")
+def run_preprocess():
+    run_preprocessing()
+
+
 @flow(
     name="real_estate_pipeline",
     on_failure=[on_failure],
@@ -104,6 +110,7 @@ async def main():
 
     run_transform()
     run_clean()
+    run_preprocess()
 
     send_telegram(
         f"📊 Pipeline Summary\n"
