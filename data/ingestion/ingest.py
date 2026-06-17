@@ -51,9 +51,18 @@ class DataPipeline:
 
     def _log_schema_rejection(self, normalized: dict, error: str) -> None:
         """Log Gate 1 failures directly to MongoDB since we have no prop object."""
+        link = normalized.get("link", "")
+        source = "unknown"
+        if "bayut" in link:
+            source = "bayut"
+        elif "dubizzle" in link or "olx" in link:
+            source = "dubizzle"
+        elif "aqarmap" in link:
+            source = "aqarmap"
+
         try:
             self.rejected_listings.insert_one({
-                "source": normalized.get("source", "unknown"),
+                "source": source,
                 "rejected_at": datetime.now(),
                 "gate": "gate_1_schema",
                 "failed_rules": [f"Schema validation failed: {error}"],

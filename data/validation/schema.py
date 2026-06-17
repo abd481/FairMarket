@@ -16,12 +16,12 @@ class Property(BaseModel):
     """
 
     # --- Fields ---
-    price: int = None
-    location: str = None
+    price: Optional[int] = None
+    location: Optional[str] = None
     title: Optional[str] = None
     beds: Optional[Any] = None
     baths: Optional[Any] = None
-    area: float = None
+    area: Optional[float] = None
     property_type: Optional[str] = None
     amenities: Optional[List[str]] = None
     link: Optional[str] = None
