@@ -1,7 +1,5 @@
 # Real Estate Pipeline
 
-[![CI](https://github.com/abd481/Real-estate-end-to-end-System-/actions/workflows/ci.yml/badge.svg)](https://github.com/abd481/Real-estate-end-to-end-System-/actions/workflows/ci.yml)
-
 An end-to-end real estate data pipeline for the Egyptian market. It scrapes property listings, validates and cleans them, engineers features, and stores ready-to-use datasets for downstream analysis and machine learning.
 
 The project is built to be practical rather than flashy: it focuses on getting reliable property data into a shape that is easy to inspect, test, and reuse.

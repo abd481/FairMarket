@@ -89,6 +89,12 @@ def split_data(X, y):
     X_val, X_test, y_val, y_test = train_test_split(
         X_temp, y_temp, test_size=0.50, random_state=42
     )
+    X_train = X_train.reset_index(drop=True)
+    X_val = X_val.reset_index(drop=True)
+    X_test = X_test.reset_index(drop=True)
+    y_train = y_train.reset_index(drop=True)
+    y_val = y_val.reset_index(drop=True)
+    y_test = y_test.reset_index(drop=True)
     return X_train, X_val, X_test, y_train, y_val, y_test
 
 
