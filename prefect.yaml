@@ -16,7 +16,10 @@ pull:
       script: poetry config virtualenvs.create false
       directory: Real-estate-end-to-end-System--main
   - prefect.deployments.steps.run_shell_script:
-      script: poetry install --no-interaction
+      script: poetry install --no-interaction --only main
+      directory: Real-estate-end-to-end-System--main
+  - prefect.deployments.steps.run_shell_script:
+      script: python3 -m pip install joblib
       directory: Real-estate-end-to-end-System--main
   - prefect.deployments.steps.run_shell_script:
       script: poetry run playwright install --with-deps firefox

@@ -84,10 +84,22 @@ def run_preprocess():
     on_completion=[on_success]
 )
 async def main():
-    configs = [
-        load_config(PROJECT_ROOT / "scrapers" / "configs" / "bayut.json"),
-        load_config(PROJECT_ROOT / "scrapers" / "configs" / "olx.json"),
+    config_paths = [
+        ("bayut", PROJECT_ROOT / "scrapers" / "configs" / "bayut.json"),
+        ("olx", PROJECT_ROOT / "scrapers" / "configs" / "olx.json"),
     ]
+    configs = []
+    for name, path in config_paths:
+        try:
+            configs.append(load_config(path))
+        except FileNotFoundError:
+            send_telegram(f"⚠️ Config file missing: {name} ({path})")
+            print(f"❌ Config file missing: {path}")
+            continue
+        except json.JSONDecodeError as e:
+            send_telegram(f"⚠️ Config file malformed: {name} — {e}")
+            print(f"❌ Config file malformed: {path}: {e}")
+            continue
 
     all_listings = []
 

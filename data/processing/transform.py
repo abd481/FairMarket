@@ -140,18 +140,22 @@ def transform():
                     ON CONFLICT (checksum) DO NOTHING
                 """), flat)
 
-                conn.commit()
-
                 raw_collection.update_one(
                     {"_id": doc["_id"]},
                     {"$set": {"transformed": True}}
                 )
+
+                conn.commit()
 
                 inserted += 1
 
             except Exception as e:
 
                 conn.rollback()
+                raw_collection.update_one(
+                    {"_id": doc["_id"]},
+                    {"$set": {"transformed": False}}
+                )
 
                 print(f"❌ Error | link: {doc.get('listing_data', {}).get('link')} | {e}")
 
