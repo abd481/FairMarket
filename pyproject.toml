@@ -26,6 +26,9 @@ prefect = ">=3.0.0"
 pymongo = ">=4.15.0,<5.0.0"
 python-dotenv = ">=1.2.0,<2.0.0"
 pydantic = ">=2.12.0,<3.0.0"
+joblib = "^1.5.3"
+scikit-learn = ">=1.6.0"
+numpy = ">=2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = ">=26.3.1,<27.0.0"
