@@ -79,7 +79,7 @@ AMENITIES_MAP = {
 
 
 def filter_data(df):
-    return df[df['area'] >= 50].copy()
+    return df[(df['area'] >= 50) & (df['price'] >= 200_000)].copy()
 
 
 def split_data(X, y):
