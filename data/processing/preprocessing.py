@@ -238,6 +238,7 @@ def build_preprocessing_pipeline():
 
 def preprocess(df):
     df = filter_data(df)
+    df = df.drop_duplicates()
 
 
     X = df.drop(columns='price')
