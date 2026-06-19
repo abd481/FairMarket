@@ -182,7 +182,7 @@ def validate(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=critical_columns)
     
     # 2. drop invalid price and area
-    df = df[df['price'] > 0]
+    df = df[df['price'] >= 200_000]
     df = df[df['area'] > 0]
     
     # 3. drop negative beds and baths
