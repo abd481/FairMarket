@@ -238,6 +238,7 @@ def build_preprocessing_pipeline():
 
 def preprocess(df):
     df = filter_data(df)
+    df = df.drop(columns=['link', 'source'], errors='ignore')
     df = df.drop_duplicates()
 
 
