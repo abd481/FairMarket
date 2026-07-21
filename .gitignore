@@ -1,6 +1,43 @@
+# Environment
 .env
+.venv/
+
+# Python
 __pycache__/
 *.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+
+# Testing
 .pytest_cache/
+.mypy_cache/
+.dmypy.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
 logs/
+
+# Artifacts / Outputs
 artifacts/
+mlruns/
+mlflow.db
+*.joblib
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Dask
+dask-worker-space/
+
+# Python version
+.python-version 
+
+# error analysis 
+error_analysis.py
