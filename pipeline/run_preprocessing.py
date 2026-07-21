@@ -37,17 +37,19 @@ def run_preprocessing():
     df = load_clean_data()
     print(f'Loaded {len(df)} rows')
 
-    X_train, X_val, X_test, y_train, y_val, y_test, pipeline = preprocess(df)
+    X_train, X_val, X_test, y_train, y_val, y_test, pipeline, ids_train, ids_val, ids_test = preprocess(df)
 
     feature_names = build_feature_names(pipeline, X_train.shape[1])
 
-    for split_name, X, y in [
-        ('train_data', X_train, y_train),
-        ('val_data', X_val, y_val),
-        ('test_data', X_test, y_test),
+    for split_name, X, y, ids in [
+        ('train_data', X_train, y_train, ids_train),
+        ('val_data', X_val, y_val, ids_val),
+        ('test_data', X_test, y_test, ids_test),
     ]:
         out = pd.DataFrame(X, columns=feature_names)
         out['price_log'] = y
+        if ids is not None:
+            out['id'] = ids.values  # attach id as a plain column
         out.to_sql(split_name, ENGINE, if_exists='replace', index=False)
         print(f'Saved {len(out)} rows to {split_name}')
 
@@ -55,6 +57,5 @@ def run_preprocessing():
     joblib.dump(pipeline, path)
     print(f'Pipeline saved to {path}')
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     run_preprocessing()
