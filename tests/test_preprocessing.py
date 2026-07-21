@@ -6,7 +6,7 @@ from data.processing.preprocessing import (
     filter_data,
     split_data,
     log_target,
-    CountBasedHierarchicalTargetEncoder,
+    SmoothedHierarchicalTargetEncoder,
     DropColumnsTransformer,
     AmenityScoreTransformer,
     build_preprocessing_pipeline,
@@ -84,11 +84,11 @@ class TestDropColumnsTransformer:
         assert transformer.fit(X) is transformer
 
 
-class TestCountBasedHierarchicalTargetEncoder:
+class TestSmoothedHierarchicalTargetEncoder:
     def test_encodes_known_location(self):
         X = pd.DataFrame({'location': ['Cairo,New Cairo', 'Giza', 'Cairo,New Cairo', 'Alexandria']})
         y = np.array([10, 20, 30, 40])
-        encoder = CountBasedHierarchicalTargetEncoder(col='location', min_samples=2)
+        encoder = SmoothedHierarchicalTargetEncoder(col='location', min_samples=2)
         encoder.fit(X, y)
         result = encoder.transform(X)
         col = result['location']
@@ -98,7 +98,7 @@ class TestCountBasedHierarchicalTargetEncoder:
         X_train = pd.DataFrame({'location': ['Cairo', 'Giza']})
         y_train = np.array([10, 20])
         X_test = pd.DataFrame({'location': ['UnknownCity']})
-        encoder = CountBasedHierarchicalTargetEncoder(col='location', min_samples=1)
+        encoder = SmoothedHierarchicalTargetEncoder(col='location', min_samples=1)
         encoder.fit(X_train, y_train)
         result = encoder.transform(X_test)
         assert result['location'].iloc[0] == pytest.approx(15.0)
@@ -106,7 +106,7 @@ class TestCountBasedHierarchicalTargetEncoder:
     def test_returns_dataframe_with_location_column(self):
         X = pd.DataFrame({'location': ['Cairo'], 'area': [100]})
         y = np.array([10])
-        encoder = CountBasedHierarchicalTargetEncoder(col='location', min_samples=1)
+        encoder = SmoothedHierarchicalTargetEncoder(col='location', min_samples=1)
         encoder.fit(X, y)
         result = encoder.transform(X)
         assert 'location' in result.columns
