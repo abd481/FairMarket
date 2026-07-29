@@ -87,11 +87,10 @@ def save_artifacts(model, pipeline, mode, val_preds=None, val_actuals=None):
     if val_preds is not None and val_actuals is not None:
         residuals = np.abs(val_actuals - val_preds)
         
-        bins = [0, 1_000_000, 2_000_000, 3_000_000, 4_000_000,
-                5_000_000, 10_000_000, 15_000_000, 23_000_000]
+        bins = [0, 5_000_000, 10_000_000, 23_000_000]
         calib_df = pd.DataFrame({'pred': val_preds, 'residual': residuals})
         calib_df['bin'] = pd.cut(calib_df['pred'], bins=bins, include_lowest=True)
-        calib_map = calib_df.groupby('bin', observed=True)['residual'].quantile(0.90).to_dict()
+        calib_map = calib_df.groupby('bin', observed=True)['residual'].quantile(0.80).to_dict()
         joblib.dump({'bins': bins, 'calib_map': calib_map}, model_dir / f'{mode}_calib.joblib')
 
     print(f"\nArtifacts saved for '{mode}'.")
