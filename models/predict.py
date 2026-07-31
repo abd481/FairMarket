@@ -105,6 +105,35 @@ def predict_batch():
     print(f'Predicted {len(results_df)} listings')
     save_predictions(results_df)
 
+def predict_from_features(features:dict, district_pps:dict, 
+                          global_pps: float, pipeline, model, calib,resolved_location) -> dict : 
+    # prepare_row(features,district_pps,global_pps)
+    # transform - predict exmp1 
+    # bin - get residual lower/upper 
+    # return dict 
+    
+    features['city'] = resolved_location['city'] 
+    features['district'] = resolved_location['district']
+    features['furnishing'] = 'Not Mentioned'
+    features['source'] = ''
+    features['title'] = ''
+    features['amenities'] = ''
+
+    prep_feat = prepare_row(features,district_pps,global_pps)
+    X = pipeline.transform(pd.DataFrame([prep_feat]))
+
+    pred_log = model.predict(X)[0]
+    pred_price = np.expm1(pred_log)
+
+    pred_bin = pd.cut([pred_price],bins=calib['bins'],include_lowest=True)[0]
+    q = calib['calib_map'].get(pred_bin,0)
+
+    return  {
+        'predicted_price': pred_price, 
+        'price_lower': pred_price - q , 
+        'price_upper': pred_price + q 
+    }
+ 
 def save_predictions(df) : 
     conn = ENGINE.raw_connection()
     with conn.cursor() as cur : 
