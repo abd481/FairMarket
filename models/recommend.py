@@ -13,7 +13,7 @@ from sklearn.neighbors import NearestNeighbors
 
 from utils.secrets import get_secret
 from models.predict import classify_mode, VILLA_TYPES
-
+from models.predict import prepare_row
 
 ENGINE = create_engine(get_secret('POSTGRES','postgres'))
 REC_DIR = PROJECT_ROOT / 'artifacts' / 'recommendations'
@@ -138,20 +138,72 @@ def recommend(property_id , mode, zone_filter = True , price_tolerance=0.3 , k=1
           f"{'Type':<16} {'Location':<36} {'Sim':<5}")
     print('-'*110)
 
-    if results:
-        dists = np.array([r['_dist'] for r in results])
-        d_min, d_max = dists.min(), dists.max()
-    for i, row in enumerate(results, 1):
-        loc = str(row['location'])[:35]
-        if d_max > d_min:
-            sim = 1 - (row['_dist'] - d_min) / (d_max - d_min)
-        else:
-            sim = 1.0
-        print(f"  {i:<3} EGP {row['price']:>8,.0f} {row['area']:<4.0f} "
-              f"{row['beds']:<5} {row['baths']:<5} "
-              f"{row['property_type']:<16} {loc:<35} {sim:.2f}")
-
+    for i , row in enumerate(results,1): 
+        loc = str(row['location'])[:40]
+        sim = 1 / (1 + row['_dist']) 
+        
     return results
+
+
+def recommend_from_features(features: dict, mode: str, district_pps: dict, 
+                            global_pps: float, pipeline,
+                            knn, stored_ids, metadata, 
+                            price=None, price_min=None, price_max=None,
+                            k=10, price_tolerance=0.3) -> dict: 
+
+ 
+    if price is not None : 
+     filtered_by = 'price'
+    elif price_min is not None or price_max is not None : 
+     filtered_by = 'price_range'
+    else: 
+     filtered_by = 'features_only'
+
+    prep_feat = prepare_row(features,district_pps,global_pps) 
+    query_vector = pipeline.transform(pd.DataFrame([prep_feat]))
+
+    distances,indices = knn.kneighbors(query_vector,n_neighbors=k * 3)
+    neighbor_ids = stored_ids[indices[0]]
+    neighbor_dists = distances[0]
+
+    metadata = metadata[metadata['id'].isin(neighbor_ids)].copy()
+    id_to_indices= dict(zip(neighbor_ids,neighbor_dists))
+    metadata['_dist'] = metadata['id'].map(id_to_indices)
+
+    if price is not None : 
+
+     upper = price + (price * price_tolerance)
+     lower = price - (price * price_tolerance)
+
+    results = []
+    for _,row in metadata.iterrows() : 
+        # skip if outside price_filter
+        if price is not None: 
+            if not (lower <= row['price'] <= upper): 
+                continue
+        else:
+            if price_min is not None and row['price'] < price_min:
+                continue 
+            if price_max is not None and row['price'] > price_max:
+                continue
+        
+
+        results.append(row.to_dict())
+        if len(results) >= k : 
+            break 
+
+    for r in results:
+        r['similarity'] = 1 / (1 + r['_dist'])
+        r.pop('_dist')
+
+    return {
+        'filtered_by': filtered_by, 
+        'recommendations': results
+    }
+
+
+
+
 
 
 
