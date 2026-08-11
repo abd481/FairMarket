@@ -12,50 +12,62 @@ if str(PROJECT_ROOT) not in sys.path:
 from utils.secrets import get_secret
 from data.processing.preprocessing import preprocess
 
-ENGINE = create_engine(get_secret('POSTGRES', 'postgres'))
-PIPELINE_DIR = PROJECT_ROOT / 'artifacts' / 'pipelines'
+ENGINE = create_engine(get_secret("POSTGRES", "postgres"))
+PIPELINE_DIR = PROJECT_ROOT / "artifacts" / "pipelines"
 PIPELINE_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def load_clean_data() -> pd.DataFrame:
-    return pd.read_sql('SELECT * FROM clean_properties', ENGINE)
+    return pd.read_sql("SELECT * FROM clean_properties", ENGINE)
 
 
 def build_feature_names(pipeline, n_features):
-    ct = pipeline.named_steps['preprocessor']
+    ct = pipeline.named_steps["preprocessor"]
     try:
         names = list(ct.get_feature_names_out())
         if len(names) == n_features:
             return names
     except Exception:
         pass
-    return [f'feature_{i}' for i in range(n_features)]
+    return [f"feature_{i}" for i in range(n_features)]
 
 
 def run_preprocessing():
-    print('Loading clean_properties...')
+    print("Loading clean_properties...")
     df = load_clean_data()
-    print(f'Loaded {len(df)} rows')
+    print(f"Loaded {len(df)} rows")
 
-    X_train, X_val, X_test, y_train, y_val, y_test, pipeline, ids_train, ids_val, ids_test = preprocess(df)
+    (
+        X_train,
+        X_val,
+        X_test,
+        y_train,
+        y_val,
+        y_test,
+        pipeline,
+        ids_train,
+        ids_val,
+        ids_test,
+    ) = preprocess(df)
 
     feature_names = build_feature_names(pipeline, X_train.shape[1])
 
     for split_name, X, y, ids in [
-        ('train_data', X_train, y_train, ids_train),
-        ('val_data', X_val, y_val, ids_val),
-        ('test_data', X_test, y_test, ids_test),
+        ("train_data", X_train, y_train, ids_train),
+        ("val_data", X_val, y_val, ids_val),
+        ("test_data", X_test, y_test, ids_test),
     ]:
         out = pd.DataFrame(X, columns=feature_names)
-        out['price_log'] = y
+        out["price_log"] = y
         if ids is not None:
-            out['id'] = ids.values  # attach id as a plain column
-        out.to_sql(split_name, ENGINE, if_exists='replace', index=False)
-        print(f'Saved {len(out)} rows to {split_name}')
+            out["id"] = ids.values  # attach id as a plain column
+        out.to_sql(split_name, ENGINE, if_exists="replace", index=False)
+        print(f"Saved {len(out)} rows to {split_name}")
 
-    path = PIPELINE_DIR / 'preprocessing_pipeline.joblib'
+    path = PIPELINE_DIR / "preprocessing_pipeline.joblib"
     joblib.dump(pipeline, path)
-    print(f'Pipeline saved to {path}')
+    print(f"Pipeline saved to {path}")
+
 
 if __name__ == "__main__":
     run_preprocessing()
