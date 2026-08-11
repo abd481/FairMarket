@@ -40,4 +40,7 @@ dask-worker-space/
 .python-version 
 
 # error analysis 
-error_analysis.py
+error_analysis.py 
+
+# run_pipeline.py 
+run_pipeline.py 
