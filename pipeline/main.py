@@ -1,4 +1,4 @@
-# In the name of Allah , The most gracious , The most merciful 
+# In the name of Allah , The most gracious , The most merciful
 import asyncio
 import json
 import random
@@ -18,6 +18,7 @@ from data.processing.cleaning import clean
 from pipeline.run_preprocessing import run_preprocessing
 from utils.secrets import get_secret
 
+
 def load_config(path):
     """Load scraper configuration from JSON file."""
     with open(path, "r", encoding="utf-8") as f:
@@ -25,12 +26,12 @@ def load_config(path):
 
 
 def send_telegram(message: str):
-    token = get_secret('TELEGRAM_BOT_TOKEN','telegram-bot-token')
-    chat_id = get_secret('TELEGRAM_CHAT_ID','telegram-chat-id')
+    token = get_secret("TELEGRAM_BOT_TOKEN", "telegram-bot-token")
+    chat_id = get_secret("TELEGRAM_CHAT_ID", "telegram-chat-id")
     try:
         requests.post(
             f"https://api.telegram.org/bot{token}/sendMessage",
-            json={"chat_id": chat_id, "text": message}
+            json={"chat_id": chat_id, "text": message},
         )
     except Exception as e:
         print(f"⚠️ Telegram alert failed: {e}")
@@ -47,9 +48,7 @@ def on_failure(flow, flow_run, state):
 
 def on_success(flow, flow_run, state):
     send_telegram(
-        f"✅ Pipeline COMPLETED\n"
-        f"Flow: {flow.name}\n"
-        f"Run: {flow_run.name}"
+        f"✅ Pipeline COMPLETED\n" f"Flow: {flow.name}\n" f"Run: {flow_run.name}"
     )
 
 
@@ -78,11 +77,7 @@ def run_preprocess():
     run_preprocessing()
 
 
-@flow(
-    name="real_estate_pipeline",
-    on_failure=[on_failure],
-    on_completion=[on_success]
-)
+@flow(name="real_estate_pipeline", on_failure=[on_failure], on_completion=[on_success])
 async def main():
     config_paths = [
         ("bayut", PROJECT_ROOT / "scrapers" / "configs" / "bayut.json"),
@@ -104,7 +99,7 @@ async def main():
     all_listings = []
 
     for config in configs:
-        pages = random.randint(5,7)
+        pages = random.randint(5, 7)
         print(f"🔄 Scraping {pages} pages...")
         listings = await run_scrape(config, pages)
         if listings:
@@ -133,15 +128,15 @@ async def main():
         f"⚠️ Errors: {results['error']}"
     )
 
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     print("PIPELINE SUMMARY")
-    print("="*60)
+    print("=" * 60)
     print(f"Total processed:  {results['total']}")
     print(f"✅ Approved:      {results['new']}")
     print(f"❌ Rejected:      {results['rejected']}")
     print(f"⏭️  Duplicates:    {results['duplicate']}")
     print(f"⚠️  Errors:       {results['error']}")
-    print("="*60)
+    print("=" * 60)
 
 
 if __name__ == "__main__":
