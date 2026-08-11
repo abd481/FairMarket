@@ -1,4 +1,4 @@
-# In the name of Allah , The most gracious , The most merciful 
+# In the name of Allah , The most gracious , The most merciful
 import hashlib
 from pymongo import MongoClient
 from enum import Enum
@@ -14,17 +14,17 @@ def get_raw_collection():
     """Create the Mongo collection lazily so imports stay side-effect light."""
     global _raw_collection
     if _raw_collection is None:
-        client = MongoClient(get_secret('MONGO_URI','mongo-uri'))
+        client = MongoClient(get_secret("MONGO_URI", "mongo-uri"))
         db = client["real_estate_db"]
         _raw_collection = db["raw_listings"]
     return _raw_collection
-
 
 
 class ListingStatus(Enum):
     NEW = "new"
     DUPLICATE = "duplicate"
     UPDATED = "updated"
+
 
 def generate_checksum(normalized_row: dict) -> str:
     """
