@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 from utils.secrets import get_secret
 from utils.db import get_collection
+
 load_dotenv()
 
 _engine = None
@@ -18,8 +19,9 @@ def get_engine():
     """Create the SQLAlchemy engine lazily so imports do not require secrets."""
     global _engine
     if _engine is None:
-        _engine = create_engine(get_secret('POSTGRES','postgres'))
+        _engine = create_engine(get_secret("POSTGRES", "postgres"))
     return _engine
+
 
 CREATE_TABLE = """
 CREATE TABLE IF NOT EXISTS properties (
@@ -74,11 +76,7 @@ def transform():
 
         print("✅ Table ready")
 
-        docs = list(
-            raw_collection.find(
-                {"transformed": {"$ne": True}}
-            )
-        )
+        docs = list(raw_collection.find({"transformed": {"$ne": True}}))
 
         print(f"📦 Found {len(docs)} untransformed documents")
 
@@ -102,21 +100,21 @@ def transform():
                     amenities = ", ".join(amenities)
 
                 flat = {
-                    "checksum":         doc.get("checksum"),
-                    "price":            safe_int(data.get("price")),
-                    "location":         data.get("location"),
-                    "title":            data.get("title"),
-                    "beds":             safe_beds(data.get("beds")),
-                    "baths":            safe_int(data.get("baths")),
-                    "area":             data.get("area"),
-                    "property_type":    data.get("property_type"),
-                    "furnishing":       data.get("furnishing"),
-                    "amenities":        amenities,
-                    "link":             data.get("link"),
+                    "checksum": doc.get("checksum"),
+                    "price": safe_int(data.get("price")),
+                    "location": data.get("location"),
+                    "title": data.get("title"),
+                    "beds": safe_beds(data.get("beds")),
+                    "baths": safe_int(data.get("baths")),
+                    "area": data.get("area"),
+                    "property_type": data.get("property_type"),
+                    "furnishing": data.get("furnishing"),
+                    "amenities": amenities,
+                    "link": data.get("link"),
                     "reactivated_date": data.get("reactivated_date"),
-                    "source":           doc.get("source"),
-                    "scraped_at":       doc.get("scraped_at"),
-                    "transformed_at":   datetime.now(),
+                    "source": doc.get("source"),
+                    "scraped_at": doc.get("scraped_at"),
+                    "transformed_at": datetime.now(),
                 }
 
                 if not flat["checksum"]:
@@ -124,7 +122,8 @@ def transform():
                     skipped += 1
                     continue
 
-                conn.execute(text("""
+                conn.execute(
+                    text("""
                     INSERT INTO properties (
                         checksum, price, location, title,
                         beds, baths, area, property_type,
@@ -138,11 +137,12 @@ def transform():
                         :reactivated_date, :source, :scraped_at, :transformed_at
                     )
                     ON CONFLICT (checksum) DO NOTHING
-                """), flat)
+                """),
+                    flat,
+                )
 
                 raw_collection.update_one(
-                    {"_id": doc["_id"]},
-                    {"$set": {"transformed": True}}
+                    {"_id": doc["_id"]}, {"$set": {"transformed": True}}
                 )
 
                 conn.commit()
@@ -153,11 +153,12 @@ def transform():
 
                 conn.rollback()
                 raw_collection.update_one(
-                    {"_id": doc["_id"]},
-                    {"$set": {"transformed": False}}
+                    {"_id": doc["_id"]}, {"$set": {"transformed": False}}
                 )
 
-                print(f"❌ Error | link: {doc.get('listing_data', {}).get('link')} | {e}")
+                print(
+                    f"❌ Error | link: {doc.get('listing_data', {}).get('link')} | {e}"
+                )
 
                 errors += 1
 
