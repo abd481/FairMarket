@@ -76,17 +76,18 @@ AMENITIES_MAP = {
 
 PRICE_CAP = 23_000_000  # set to e.g. 23_000_000 to cap; None = no cap
 
+
 def filter_data(df):
     cond = (df["area"] >= 50) & (df["price"] >= 1_000_000)
     if PRICE_CAP is not None:
-        cond &= (df["price"] <= PRICE_CAP)
+        cond &= df["price"] <= PRICE_CAP
     return df[cond].copy()
 
 
 def split_data(X, y, ids=None, stratify=None):
     split_kwargs = dict(test_size=0.30, random_state=42)
     if stratify is not None:
-        split_kwargs['stratify'] = stratify
+        split_kwargs["stratify"] = stratify
 
     if ids is not None:
         X_train, X_temp, y_train, y_temp, ids_train, ids_temp = train_test_split(
@@ -97,15 +98,18 @@ def split_data(X, y, ids=None, stratify=None):
         else:
             stratify_temp = None
         X_val, X_test, y_val, y_test, ids_val, ids_test = train_test_split(
-            X_temp, y_temp, ids_temp, test_size=0.50, random_state=42, stratify=stratify_temp
+            X_temp,
+            y_temp,
+            ids_temp,
+            test_size=0.50,
+            random_state=42,
+            stratify=stratify_temp,
         )
         ids_train = ids_train.reset_index(drop=True)
         ids_val = ids_val.reset_index(drop=True)
         ids_test = ids_test.reset_index(drop=True)
     else:
-        X_train, X_temp, y_train, y_temp = train_test_split(
-            X, y, **split_kwargs
-        )
+        X_train, X_temp, y_train, y_temp = train_test_split(X, y, **split_kwargs)
         if stratify is not None:
             stratify_temp = stratify.loc[X_temp.index]
         else:
@@ -227,10 +231,21 @@ class AmenityScoreTransformer(BaseEstimator, TransformerMixin):
 
 
 TITLE_KEYWORDS = [
-    'finished', 'fully finished', 'semi finished', 'corner',
-    'ready to move', 'prime', 'overlooking', 'installment',
-    'luxury', 'modern', 'spacious', 'private',
-    'exclusive', 'garden view', 'with balcony',
+    "finished",
+    "fully finished",
+    "semi finished",
+    "corner",
+    "ready to move",
+    "prime",
+    "overlooking",
+    "installment",
+    "luxury",
+    "modern",
+    "spacious",
+    "private",
+    "exclusive",
+    "garden view",
+    "with balcony",
 ]
 
 
@@ -243,8 +258,8 @@ class FrequentAmenityFlagsTransformer(BaseEstimator, TransformerMixin):
         col = X.iloc[:, 0]
         all_amenities = []
         for text in col.dropna():
-            if text != 'Not Mentioned':
-                all_amenities.extend([x.strip().lower() for x in str(text).split(',')])
+            if text != "Not Mentioned":
+                all_amenities.extend([x.strip().lower() for x in str(text).split(",")])
         counts = pd.Series(all_amenities).value_counts()
         self.frequent_amenities_ = counts[counts >= self.min_count].index.tolist()
         return self
@@ -255,9 +270,9 @@ class FrequentAmenityFlagsTransformer(BaseEstimator, TransformerMixin):
 
     def _extract_flags(self, text):
         flags = {self._sanitize(am): 0 for am in self.frequent_amenities_}
-        if pd.isna(text) or text == 'Not Mentioned':
+        if pd.isna(text) or text == "Not Mentioned":
             return pd.Series(flags)
-        items = [x.strip().lower() for x in str(text).split(',')]
+        items = [x.strip().lower() for x in str(text).split(",")]
         for item in items:
             norm = self._sanitize(item)
             if norm in flags:
@@ -266,10 +281,11 @@ class FrequentAmenityFlagsTransformer(BaseEstimator, TransformerMixin):
 
     def _sanitize(self, name):
         import re
-        return re.sub(r'[^a-zA-Z0-9_]', '_', name.replace(' ', '_').replace('/', '_'))
+
+        return re.sub(r"[^a-zA-Z0-9_]", "_", name.replace(" ", "_").replace("/", "_"))
 
     def get_feature_names_out(self, input_features=None):
-        return [f'am__{self._sanitize(am)}' for am in self.frequent_amenities_]
+        return [f"am__{self._sanitize(am)}" for am in self.frequent_amenities_]
 
 
 class TitleKeywordTransformer(BaseEstimator, TransformerMixin):
@@ -311,7 +327,9 @@ def build_preprocessing_pipeline():
     compound_encoder = SmoothedHierarchicalTargetEncoder(col="compound", k=5)
     district_encoder = SmoothedHierarchicalTargetEncoder(col="district", k=3)
     city_encoder = SmoothedHierarchicalTargetEncoder(col="city", k=3)
-    loc_proptype_encoder = SmoothedHierarchicalTargetEncoder(col="location_proptype", k=10)
+    loc_proptype_encoder = SmoothedHierarchicalTargetEncoder(
+        col="location_proptype", k=10
+    )
 
     preprocessor = ColumnTransformer(
         [
@@ -322,7 +340,9 @@ def build_preprocessing_pipeline():
             ),
             (
                 "ohe",
-                OneHotEncoder(drop="first", sparse_output=False, handle_unknown="ignore"),
+                OneHotEncoder(
+                    drop="first", sparse_output=False, handle_unknown="ignore"
+                ),
                 ["property_type", "furnishing", "source"],
             ),
             ("amenities", AmenityScoreTransformer(), ["amenities"]),
@@ -344,39 +364,54 @@ def build_preprocessing_pipeline():
         ]
     )
 
+
 PRICE_BINS = [0, 3_000_000, 10_000_000, 23_000_000]
-PRICE_LABELS = ['1-3M', '3-10M', '10-23M']
+PRICE_LABELS = ["1-3M", "3-10M", "10-23M"]
+
 
 def price_bucket_labels(prices):
     if PRICE_CAP is not None:
-        return pd.cut(prices, bins=[0, 3_000_000, 10_000_000, PRICE_CAP], labels=['1-3M', '3-10M', '10-23M'])
+        return pd.cut(
+            prices,
+            bins=[0, 3_000_000, 10_000_000, PRICE_CAP],
+            labels=["1-3M", "3-10M", "10-23M"],
+        )
     else:
-        return pd.cut(prices, bins=[0, 3_000_000, 10_000_000, 23_000_000, 50_000_000, float('inf')],
-                      labels=['1-3M', '3-10M', '10-23M', '23-50M', '>50M'])
+        return pd.cut(
+            prices,
+            bins=[0, 3_000_000, 10_000_000, 23_000_000, 50_000_000, float("inf")],
+            labels=["1-3M", "3-10M", "10-23M", "23-50M", ">50M"],
+        )
 
 
 def preprocess(df):
     df = filter_data(df)
-    df = df.drop(columns=['link'], errors='ignore')
+    df = df.drop(columns=["link"], errors="ignore")
     df = df.drop_duplicates()
 
-    df['compound'] = df['location'].apply(
-        lambda x: x.split(',')[0].strip() if pd.notna(x) and ',' in x else (x.strip() if pd.notna(x) else 'Unknown')
+    df["compound"] = df["location"].apply(
+        lambda x: (
+            x.split(",")[0].strip()
+            if pd.notna(x) and "," in x
+            else (x.strip() if pd.notna(x) else "Unknown")
+        )
     )
 
-    df['location_proptype'] = df['location'].fillna('Unknown') + ', ' + df['property_type']
-    df['beds_baths'] = df['beds'] * df['baths']
+    df["location_proptype"] = (
+        df["location"].fillna("Unknown") + ", " + df["property_type"]
+    )
+    df["beds_baths"] = df["beds"] * df["baths"]
 
-    ids = df['id'] if 'id' in df.columns else None
+    ids = df["id"] if "id" in df.columns else None
 
-    sort_col = 'scraped_at' if 'scraped_at' in df.columns else None
+    sort_col = "scraped_at" if "scraped_at" in df.columns else None
     if sort_col is not None:
         df = df.sort_values(sort_col).reset_index(drop=True)
 
-    drop_for_X = ['price', 'scraped_at'] + (['id'] if 'id' in df.columns else [])
+    drop_for_X = ["price", "scraped_at"] + (["id"] if "id" in df.columns else [])
 
     X = df.drop(columns=drop_for_X)
-    y = df['price']
+    y = df["price"]
 
     total = len(df)
     train_end = int(total * 0.70)
@@ -391,13 +426,17 @@ def preprocess(df):
     y_test = y.iloc[val_end:].reset_index(drop=True)
 
     ids_train = ids.iloc[:train_end].reset_index(drop=True) if ids is not None else None
-    ids_val = ids.iloc[train_end:val_end].reset_index(drop=True) if ids is not None else None
+    ids_val = (
+        ids.iloc[train_end:val_end].reset_index(drop=True) if ids is not None else None
+    )
     ids_test = ids.iloc[val_end:].reset_index(drop=True) if ids is not None else None
 
-    district_pps = X_train.groupby('district')['price_per_sqm'].mean()
-    global_pps = X_train['price_per_sqm'].mean()
+    district_pps = X_train.groupby("district")["price_per_sqm"].mean()
+    global_pps = X_train["price_per_sqm"].mean()
     for split_df in [X_train, X_val, X_test]:
-        split_df['district_avg_pps'] = split_df['district'].map(district_pps).fillna(global_pps)
+        split_df["district_avg_pps"] = (
+            split_df["district"].map(district_pps).fillna(global_pps)
+        )
 
     y_train, y_val, y_test = log_target(y_train, y_val, y_test)
 
@@ -406,4 +445,15 @@ def preprocess(df):
     X_val_tr = pipeline.transform(X_val)
     X_test_tr = pipeline.transform(X_test)
 
-    return X_train_tr, X_val_tr, X_test_tr, y_train, y_val, y_test, pipeline, ids_train, ids_val, ids_test
+    return (
+        X_train_tr,
+        X_val_tr,
+        X_test_tr,
+        y_train,
+        y_val,
+        y_test,
+        pipeline,
+        ids_train,
+        ids_val,
+        ids_test,
+    )
