@@ -101,7 +101,8 @@ class TestRulesFurnishing:
 
 class TestRulesSource:
     def test_invalid_source(self):
-        prop = make_property(source="invalid_source", link="https://example.com/property/1")
+        prop = make_property(link="https://www.bayut.com/property/1")
+        prop.source = "totally_invalid"
         valid, errors = PropertyRules.validate(prop)
         assert not valid
         assert "Invalid source" in errors[0]
@@ -110,6 +111,14 @@ class TestRulesSource:
         prop = make_property(source="olx")
         valid, _ = PropertyRules.validate(prop)
         assert valid
+
+    def test_source_inferred_from_url(self):
+        prop = make_property(link="https://www.dubizzle.com/property/1")
+        assert prop.source == "dubizzle"
+
+    def test_source_defaults_to_unknown(self):
+        prop = make_property(link="https://example.com/property/1")
+        assert prop.source == "unknown"
 
 
 class TestRulesLink:
@@ -127,13 +136,15 @@ class TestRulesLink:
 
 class TestRulesDate:
     def test_future_date_fails(self):
-        prop = make_property(reactivated_date=datetime.now() + timedelta(days=1))
+        prop = make_property()
+        prop.reactivated_date = datetime.now() + timedelta(days=1)
         valid, errors = PropertyRules.validate(prop)
         assert not valid
         assert "Reactivated date cannot be in the future" in errors
 
     def test_past_date_passes(self):
-        prop = make_property(reactivated_date=datetime.now() - timedelta(days=1))
+        prop = make_property()
+        prop.reactivated_date = datetime.now() - timedelta(days=1)
         valid, _ = PropertyRules.validate(prop)
         assert valid
 
