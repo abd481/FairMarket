@@ -7,7 +7,7 @@ _client = None
 def get_mongo_client() -> MongoClient:
     global _client
     if _client is None:
-        mongo_uri = get_secret('MONGO_URI', 'mongo-uri')
+        mongo_uri = get_secret("MONGO_URI", "mongo-uri")
         _client = MongoClient(mongo_uri)
     return _client
 
