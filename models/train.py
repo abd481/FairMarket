@@ -18,9 +18,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from data.processing.preprocessing import preprocess
-from models.config import MODE_PARAMS,EARLY_STOPPING_ROUNDS
+from models.config import MODE_PARAMS, EARLY_STOPPING_ROUNDS
 from utils.secrets import get_secret
-
 
 ENGINE = create_engine(get_secret("POSTGRES", "postgres"))
 
@@ -58,7 +57,6 @@ def evaluate(model, datasets):
             f"MAPE={metrics[f'{name}_mape']:.4f} "
             f"R²={metrics[f'{name}_r2']:.4f}"
         )
-        
 
 
 def save_artifacts(model, pipeline, mode, val_preds=None, val_actuals=None):
@@ -86,12 +84,16 @@ def save_artifacts(model, pipeline, mode, val_preds=None, val_actuals=None):
 
     if val_preds is not None and val_actuals is not None:
         residuals = np.abs(val_actuals - val_preds)
-        
+
         bins = [0, 5_000_000, 10_000_000, 23_000_000]
-        calib_df = pd.DataFrame({'pred': val_preds, 'residual': residuals})
-        calib_df['bin'] = pd.cut(calib_df['pred'], bins=bins, include_lowest=True)
-        calib_map = calib_df.groupby('bin', observed=True)['residual'].quantile(0.80).to_dict()
-        joblib.dump({'bins': bins, 'calib_map': calib_map}, model_dir / f'{mode}_calib.joblib')
+        calib_df = pd.DataFrame({"pred": val_preds, "residual": residuals})
+        calib_df["bin"] = pd.cut(calib_df["pred"], bins=bins, include_lowest=True)
+        calib_map = (
+            calib_df.groupby("bin", observed=True)["residual"].quantile(0.80).to_dict()
+        )
+        joblib.dump(
+            {"bins": bins, "calib_map": calib_map}, model_dir / f"{mode}_calib.joblib"
+        )
 
     print(f"\nArtifacts saved for '{mode}'.")
 
@@ -130,11 +132,7 @@ def train(mode, weighting="none"):
         ids_test,
     ) = preprocess(df)
 
-    print(
-        f"Train: {len(X_train)} | "
-        f"Val: {len(X_val)} | "
-        f"Test: {len(X_test)}"
-    )
+    print(f"Train: {len(X_train)} | " f"Val: {len(X_val)} | " f"Test: {len(X_test)}")
 
     params = MODE_PARAMS[mode].copy()
     params["early_stopping_rounds"] = EARLY_STOPPING_ROUNDS
@@ -143,11 +141,14 @@ def train(mode, weighting="none"):
 
     if sample_weight is not None:
         rn_str = f"{mode}_{weighting}"
-        print(f"Weighting: {weighting}  mean={sample_weight.mean():.4f}  "
-              f"min={sample_weight.min():.4f}  max={sample_weight.max():.4f}")
+        print(
+            f"Weighting: {weighting}  mean={sample_weight.mean():.4f}  "
+            f"min={sample_weight.min():.4f}  max={sample_weight.max():.4f}"
+        )
     else:
         rn_str = mode
 
+    mlflow.set_tracking_uri(f"sqlite:///{PROJECT_ROOT / 'mlflow.db'}")
     mlflow.set_experiment("price_prediction")
 
     with mlflow.start_run(run_name=rn_str):
@@ -162,11 +163,11 @@ def train(mode, weighting="none"):
         model.fit(
             X_train,
             y_train,
-            eval_set=[(X_val, y_val)], 
+            eval_set=[(X_val, y_val)],
             sample_weight=sample_weight,
             verbose=False,
         )
-       
+
         evaluate(
             model,
             [
@@ -176,9 +177,13 @@ def train(mode, weighting="none"):
             ],
         )
 
-        save_artifacts(model, pipeline, f"{mode}" if weighting == "none" else f"{mode}_{weighting}",
-                       val_preds=np.expm1(model.predict(X_val)),
-                       val_actuals=np.expm1(y_val))
+        save_artifacts(
+            model,
+            pipeline,
+            f"{mode}" if weighting == "none" else f"{mode}_{weighting}",
+            val_preds=np.expm1(model.predict(X_val)),
+            val_actuals=np.expm1(y_val),
+        )
 
 
 if __name__ == "__main__":
