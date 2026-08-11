@@ -5,7 +5,9 @@ import asyncio
 import random
 from dotenv import load_dotenv
 from utils.db import get_collection
+
 load_dotenv()
+
 
 def get_raw_collection():
     return get_collection("raw_listings")
@@ -20,13 +22,13 @@ def filter_new_links(all_links: list) -> list:
     """Return only links that don't already exist in the database."""
     raw_collection = get_raw_collection()
     existing = set(
-        doc["link"] for doc in raw_collection.find(
-            {"link": {"$in": all_links}},
-            {"link": 1}
-        )
+        doc["link"]
+        for doc in raw_collection.find({"link": {"$in": all_links}}, {"link": 1})
     )
     new_links = [link for link in all_links if link not in existing]
-    print(f"🔍 Total: {len(all_links)} | Already in DB: {len(existing)} | New: {len(new_links)}")
+    print(
+        f"🔍 Total: {len(all_links)} | Already in DB: {len(existing)} | New: {len(new_links)}"
+    )
     return new_links
 
 
@@ -67,7 +69,9 @@ async def extract_amenities(page, config):
                             amenities_config.get("fallback_items", "span")
                         )
                         amenities = await items.all_text_contents()
-                        return list(dict.fromkeys([a.strip() for a in amenities if a.strip()]))
+                        return list(
+                            dict.fromkeys([a.strip() for a in amenities if a.strip()])
+                        )
                 except Exception as e:
                     print(f"⚠️ Amenities button click failed: {e}")
 
@@ -86,7 +90,7 @@ async def extract_details(page, link, config):
     """Navigate to a listing page and extract all configured fields + amenities."""
     try:
         await page.goto(link, wait_until="domcontentloaded", timeout=20000)
-        await asyncio.sleep(random.uniform(1.5,2))
+        await asyncio.sleep(random.uniform(1.5, 2))
 
         data = {}
         for key, selector in config["detail"]["fields"].items():
@@ -123,15 +127,15 @@ async def scrape_batch(browser, links, config, user_agents):
             user_agent=random.choice(user_agents),
             viewport={
                 "width": random.randint(1200, 1920),
-                "height": random.randint(700, 1080)
-            }
+                "height": random.randint(700, 1080),
+            },
         )
         contexts.append(context)
 
         page = await context.new_page()
 
         await page.route("**/*.{png,jpg,jpeg,webp,gif,svg}", block_images)
-        await asyncio.sleep(random.uniform(0.5,1))
+        await asyncio.sleep(random.uniform(0.5, 1))
 
         # Each task captures its own `page` — no shared state between tasks
         tasks.append(extract_details(page, link, config))
@@ -157,7 +161,7 @@ async def scrape(config, max_pages=2):
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15"
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15",
     ]
 
     async with async_playwright() as p:
@@ -168,12 +172,16 @@ async def scrape(config, max_pages=2):
             all_links = []
 
             for i in range(1, max_pages + 1):
-                url = config["base_url"] + config["listing"]["pagination_url"].format(page=i)
+                url = config["base_url"] + config["listing"]["pagination_url"].format(
+                    page=i
+                )
 
                 page_loaded = False
                 for attempt in range(4):
                     try:
-                        await page.goto(url, wait_until="domcontentloaded", timeout=30000)
+                        await page.goto(
+                            url, wait_until="domcontentloaded", timeout=30000
+                        )
                         page_loaded = True
                         break
                     except Exception:
@@ -181,7 +189,9 @@ async def scrape(config, max_pages=2):
                             print(f"⚠️ Skipping page {i} — failed after 4 attempts")
                             break
                         wait = random.uniform(4, 8)
-                        print(f"⚠️ Page {i} failed, retrying in {wait:.1f}s (attempt {attempt + 2}/3)...")
+                        print(
+                            f"⚠️ Page {i} failed, retrying in {wait:.1f}s (attempt {attempt + 2}/3)..."
+                        )
                         await asyncio.sleep(wait)
 
                 if not page_loaded:
@@ -225,7 +235,7 @@ async def scrape(config, max_pages=2):
             failed_links = []
 
             for i in range(0, len(new_links), BATCH_SIZE):
-                batch = new_links[i:i + BATCH_SIZE]
+                batch = new_links[i : i + BATCH_SIZE]
                 batch_num = i // BATCH_SIZE + 1
                 total_batches = (len(new_links) + BATCH_SIZE - 1) // BATCH_SIZE
                 print(f"Scraping batch {batch_num}/{total_batches}...")
@@ -238,7 +248,9 @@ async def scrape(config, max_pages=2):
                         failed_links.append(link)
 
                 all_data.extend(batch_data)
-                print(f"Progress: {len(all_data)}/{len(new_links)} scraped | Failed so far: {len(failed_links)}")
+                print(
+                    f"Progress: {len(all_data)}/{len(new_links)} scraped | Failed so far: {len(failed_links)}"
+                )
 
                 if i + BATCH_SIZE < len(new_links):
                     delay = random.uniform(1.5, 1.9)
@@ -251,14 +263,18 @@ async def scrape(config, max_pages=2):
                 await asyncio.sleep(5)
 
                 for i in range(0, len(failed_links), BATCH_SIZE):
-                    batch = failed_links[i:i + BATCH_SIZE]
+                    batch = failed_links[i : i + BATCH_SIZE]
                     retry_data = await scrape_batch(browser, batch, config, USER_AGENTS)
                     all_data.extend(retry_data)
                     print(f"Retry progress: {len(retry_data)}/{len(batch)} recovered")
                     await asyncio.sleep(random.uniform(3, 5))
 
-            remaining_failed = [l for l in failed_links if l not in {d["Link"] for d in all_data}]
-            print(f"\n✅ Done! Collected: {len(all_data)} | Still failed: {len(remaining_failed)}")
+            remaining_failed = [
+                l for l in failed_links if l not in {d["Link"] for d in all_data}
+            ]
+            print(
+                f"\n✅ Done! Collected: {len(all_data)} | Still failed: {len(remaining_failed)}"
+            )
             return all_data
 
         finally:
