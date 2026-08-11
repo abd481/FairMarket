@@ -1,4 +1,4 @@
-# In the name of Allah , The most gracious , The most merciful 
+# In the name of Allah , The most gracious , The most merciful
 
 import os
 from datetime import datetime
@@ -13,6 +13,7 @@ from data.validation.rules import PropertyRules
 from data.ingestion.property_logger import PropertyLogger, logger
 from utils.secrets import get_secret
 from utils.db import get_database
+
 load_dotenv()
 
 
@@ -38,9 +39,7 @@ class DataPipeline:
             self.property_logger = PropertyLogger()
 
             self.raw_listings.create_index(
-                [("checksum", ASCENDING)],
-                unique=True,
-                sparse=True
+                [("checksum", ASCENDING)], unique=True, sparse=True
             )
 
             logger.info("Pipeline initialized")
@@ -61,17 +60,21 @@ class DataPipeline:
             source = "aqarmap"
 
         try:
-            self.rejected_listings.insert_one({
-                "source": source,
-                "rejected_at": datetime.now(),
-                "gate": "gate_1_schema",
-                "failed_rules": [f"Schema validation failed: {error}"],
-                "listing_data": normalized
-            })
+            self.rejected_listings.insert_one(
+                {
+                    "source": source,
+                    "rejected_at": datetime.now(),
+                    "gate": "gate_1_schema",
+                    "failed_rules": [f"Schema validation failed: {error}"],
+                    "listing_data": normalized,
+                }
+            )
         except Exception as e:
             logger.error(f"Failed to log schema rejection: {str(e)}")
 
-    def process_single_listing(self, raw_row: Dict[str, Any], seen_checksums: set) -> Tuple[bool, str, Dict[str, Any]]:
+    def process_single_listing(
+        self, raw_row: Dict[str, Any], seen_checksums: set
+    ) -> Tuple[bool, str, Dict[str, Any]]:
         try:
             normalized = normalize_row(raw_row)
             checksum = generate_checksum(normalized)
@@ -85,12 +88,14 @@ class DataPipeline:
 
             # 2. DB duplicate
             if self.raw_listings.find_one({"checksum": checksum}):
-                self.duplicate_listings.insert_one({
-                    "link": link,
-                    "checksum": checksum,
-                    "seen_at": datetime.now(),
-                    "raw_data": raw_row
-                })
+                self.duplicate_listings.insert_one(
+                    {
+                        "link": link,
+                        "checksum": checksum,
+                        "seen_at": datetime.now(),
+                        "raw_data": raw_row,
+                    }
+                )
                 return True, "duplicate", {"link": link}
 
             # 3. Gate 1 — schema validation
@@ -124,7 +129,7 @@ class DataPipeline:
             "duplicate": 0,
             "rejected": 0,
             "error": 0,
-            "timestamp": datetime.now()
+            "timestamp": datetime.now(),
         }
 
         seen = set()
