@@ -27,7 +27,13 @@ class PropertyRules:
 
         # --- Furnishing rules ---
         if prop.furnishing is not None:
-            valid_furnishing = ["Furnished", "Unfurnished", "Semi-Furnished","Yes","No"]
+            valid_furnishing = [
+                "Furnished",
+                "Unfurnished",
+                "Semi-Furnished",
+                "Yes",
+                "No",
+            ]
             if prop.furnishing not in valid_furnishing:
                 errors.append(f"Invalid furnishing value: '{prop.furnishing}'")
 
