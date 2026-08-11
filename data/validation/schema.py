@@ -1,4 +1,4 @@
-# In the name of Allah , The most gracious , The most merciful 
+# In the name of Allah , The most gracious , The most merciful
 from pydantic import BaseModel, field_validator, model_validator, Field
 from typing import Optional, List, Any
 import ast
@@ -31,7 +31,6 @@ class Property(BaseModel):
     # --- System / metadata fields ---
     source: str = "unknown"
     scraped_at: datetime = Field(default_factory=datetime.now)
-
 
     @field_validator("price", mode="before")
     @classmethod
@@ -78,16 +77,16 @@ class Property(BaseModel):
     @field_validator("furnishing", mode="before")
     @classmethod
     def clean_furnishing(cls, v):
-     if not v or str(v).strip() == "":
-        return None
-     mapping = {
-        "Yes": "Furnished",
-        "No": "Unfurnished",
-        "Furnished": "Furnished",
-        "Unfurnished": "Unfurnished",
-        "Semi-Furnished": "Semi-Furnished",
+        if not v or str(v).strip() == "":
+            return None
+        mapping = {
+            "Yes": "Furnished",
+            "No": "Unfurnished",
+            "Furnished": "Furnished",
+            "Unfurnished": "Unfurnished",
+            "Semi-Furnished": "Semi-Furnished",
         }
-     return mapping.get(str(v).strip(), str(v).strip())
+        return mapping.get(str(v).strip(), str(v).strip())
 
     @field_validator("reactivated_date", mode="before")
     @classmethod
