@@ -34,32 +34,66 @@ class TestNormalizeRow:
         assert result["property_type"] == "Villa"
 
     def test_missing_furnishing_returns_none(self):
-        result = normalize_row({
-            "Price": 100000, "Location": "Cairo", "Title": "Test",
-            "Beds": 2, "Baths": 1, "Area": 80, "Type": "Apartment",
-            "Amenities": "[]", "Link": "url",
-        })
+        result = normalize_row(
+            {
+                "Price": 100000,
+                "Location": "Cairo",
+                "Title": "Test",
+                "Beds": 2,
+                "Baths": 1,
+                "Area": 80,
+                "Type": "Apartment",
+                "Amenities": "[]",
+                "Link": "url",
+            }
+        )
         assert result["furnishing"] is None
 
     def test_missing_reactivated_date_returns_none(self):
-        result = normalize_row({
-            "Price": 100000, "Location": "Cairo", "Title": "Test",
-            "Beds": 2, "Baths": 1, "Area": 80, "Type": "Apartment",
-            "Amenities": "[]", "Link": "url",
-        })
+        result = normalize_row(
+            {
+                "Price": 100000,
+                "Location": "Cairo",
+                "Title": "Test",
+                "Beds": 2,
+                "Baths": 1,
+                "Area": 80,
+                "Type": "Apartment",
+                "Amenities": "[]",
+                "Link": "url",
+            }
+        )
         assert result["reactivated_date"] is None
 
     def test_handles_empty_amenities(self):
-        result = normalize_row({
-            "Price": 100000, "Location": "Cairo", "Title": "Test",
-            "Beds": 2, "Baths": 1, "Area": 80, "Type": "Apartment",
-            "Furnishing": "No", "Amenities": "", "Link": "url",
-        })
+        result = normalize_row(
+            {
+                "Price": 100000,
+                "Location": "Cairo",
+                "Title": "Test",
+                "Beds": 2,
+                "Baths": 1,
+                "Area": 80,
+                "Type": "Apartment",
+                "Furnishing": "No",
+                "Amenities": "",
+                "Link": "url",
+            }
+        )
         assert result["amenities"] == "[]"
 
     def test_handles_none_price(self):
-        row = {"Price": None, "Location": "Cairo", "Title": "Test",
-               "Beds": 2, "Baths": 1, "Area": 80, "Type": "Apartment",
-               "Furnishing": None, "Amenities": "[]", "Link": "url"}
+        row = {
+            "Price": None,
+            "Location": "Cairo",
+            "Title": "Test",
+            "Beds": 2,
+            "Baths": 1,
+            "Area": 80,
+            "Type": "Apartment",
+            "Furnishing": None,
+            "Amenities": "[]",
+            "Link": "url",
+        }
         result = normalize_row(row)
         assert result["price"] is None
