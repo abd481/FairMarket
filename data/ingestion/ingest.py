@@ -7,7 +7,7 @@ from pymongo import ASCENDING
 from dotenv import load_dotenv
 
 from data.processing.normalize import normalize_row
-from data.validation.checksum import generate_checksum
+from data.validation.checksum import generate_checksum, check_and_handle, ListingStatus
 from data.validation.schema import Property
 from data.validation.rules import PropertyRules
 from data.ingestion.property_logger import PropertyLogger, logger
@@ -80,14 +80,13 @@ class DataPipeline:
             checksum = generate_checksum(normalized)
             link = normalized.get("link", "unknown")
 
-            # 1. batch duplicate
+            # 1. batch duplicate (only claimed by approved rows — see step 5)
             if checksum in seen_checksums:
                 return True, "duplicate", {"link": link}
 
-            seen_checksums.add(checksum)
-
-            # 2. DB duplicate
-            if self.raw_listings.find_one({"checksum": checksum}):
+            # 2. DB duplicate via the tested check_and_handle logic
+            status = check_and_handle(normalized, checksum)
+            if status == ListingStatus.DUPLICATE:
                 self.duplicate_listings.insert_one(
                     {
                         "link": link,
@@ -114,7 +113,8 @@ class DataPipeline:
                 self.property_logger.log_rejection(prop, errors)
                 return True, "rejected", {"errors": errors}
 
-            # 5. store approved listing
+            # 5. store approved listing and claim its checksum
+            seen_checksums.add(checksum)
             self.property_logger.log_approved(prop, checksum)
             return True, "new", {"link": link}
 
