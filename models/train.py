@@ -7,7 +7,6 @@ import mlflow
 import numpy as np
 import pandas as pd
 import xgboost as xgb
-from sqlalchemy import create_engine
 from sklearn.metrics import (
     mean_absolute_error,
     mean_absolute_percentage_error,
@@ -19,9 +18,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from data.processing.preprocessing import preprocess
 from models.config import MODE_PARAMS, EARLY_STOPPING_ROUNDS
-from utils.secrets import get_secret
-
-ENGINE = create_engine(get_secret("POSTGRES", "postgres"))
+from utils.db import get_pg_engine
 
 VILLA_TYPES = ["Villa", "Stand Alone Villa"]
 
@@ -114,7 +111,7 @@ def compute_weights(y_train, weighting):
 
 def train(mode, weighting="none"):
 
-    df = pd.read_sql("SELECT * FROM clean_properties", ENGINE)
+    df = pd.read_sql("SELECT * FROM clean_properties", get_pg_engine())
     df = filter_by_mode(df, mode)
 
     print(f"{mode}: {len(df)} rows after filtering")
