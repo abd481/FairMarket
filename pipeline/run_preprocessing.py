@@ -1,6 +1,5 @@
 import sys
 from pathlib import Path
-from sqlalchemy import create_engine
 import pandas as pd
 import numpy as np
 import joblib
@@ -9,16 +8,15 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from utils.secrets import get_secret
 from data.processing.preprocessing import preprocess
+from utils.db import get_pg_engine
 
-ENGINE = create_engine(get_secret("POSTGRES", "postgres"))
 PIPELINE_DIR = PROJECT_ROOT / "artifacts" / "pipelines"
 PIPELINE_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def load_clean_data() -> pd.DataFrame:
-    return pd.read_sql("SELECT * FROM clean_properties", ENGINE)
+    return pd.read_sql("SELECT * FROM clean_properties", get_pg_engine())
 
 
 def build_feature_names(pipeline, n_features):
@@ -61,7 +59,7 @@ def run_preprocessing():
         out["price_log"] = y
         if ids is not None:
             out["id"] = ids.values  # attach id as a plain column
-        out.to_sql(split_name, ENGINE, if_exists="replace", index=False)
+        out.to_sql(split_name, get_pg_engine(), if_exists="replace", index=False)
         print(f"Saved {len(out)} rows to {split_name}")
 
     path = PIPELINE_DIR / "preprocessing_pipeline.joblib"
