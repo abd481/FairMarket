@@ -8,11 +8,10 @@ sys.path.insert(0, str(PROJECT_ROOT))
 import pandas as pd
 import numpy as np
 import joblib
-from sqlalchemy import create_engine
 
 from utils.secrets import get_secret
+from utils.db import get_pg_engine
 
-ENGINE = create_engine(get_secret("POSTGRES", "postgres"))
 VILLA_TYPES = ["Villa", "Stand Alone Villa"]
 
 
@@ -44,7 +43,11 @@ def prepare_row(row, district_pps, global_pps):
 
 def predict_single(property_id):
     """Fetch one property by id, run it through the appropriate model, and print the prediction."""
-    df = pd.read_sql(f"SELECT * FROM clean_properties WHERE id = {property_id}", ENGINE)
+    df = pd.read_sql(
+        "SELECT * FROM clean_properties WHERE id = :pid",
+        get_pg_engine(),
+        params={"pid": property_id},
+    )
     if df.empty:
         print(f"No property found with id={property_id}")
         return
@@ -76,10 +79,10 @@ def predict_batch():
                   SELECT * FROM clean_properties
                   WHERE id NOT IN (SELECT property_id FROM property_predictions)
                """,
-            ENGINE,
+            get_pg_engine(),
         )
     except Exception:
-        df = pd.read_sql("SELECT * FROM clean_properties", ENGINE)
+        df = pd.read_sql("SELECT * FROM clean_properties", get_pg_engine())
 
     if df.empty:
         print("No unpredicted listings found.")
@@ -152,7 +155,7 @@ def predict_from_features(
 
 def save_predictions(df):
     """Ensure the predictions table exists, then append the new predictions to it."""
-    conn = ENGINE.raw_connection()
+    conn = get_pg_engine().raw_connection()
     with conn.cursor() as cur:
         cur.execute("""
            CREATE TABLE IF NOT EXISTS property_predictions (
@@ -169,7 +172,7 @@ def save_predictions(df):
     conn.commit()
     conn.close()
 
-    df.to_sql("property_predictions", ENGINE, if_exists="append", index=False)
+    df.to_sql("property_predictions", get_pg_engine(), if_exists="append", index=False)
     print(f"Saved {len(df)} predictions to property_predictions table")
 
 
