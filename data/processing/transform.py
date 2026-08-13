@@ -2,25 +2,14 @@
 
 from datetime import datetime
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, text
-from utils.secrets import get_secret
-from utils.db import get_collection
+from sqlalchemy import text
+from utils.db import get_collection, get_pg_engine
 
 load_dotenv()
-
-_engine = None
 
 
 def get_raw_collection():
     return get_collection("raw_listings")
-
-
-def get_engine():
-    """Create the SQLAlchemy engine lazily so imports do not require secrets."""
-    global _engine
-    if _engine is None:
-        _engine = create_engine(get_secret("POSTGRES", "postgres"))
-    return _engine
 
 
 CREATE_TABLE = """
@@ -69,7 +58,7 @@ def transform():
 
     raw_collection = get_raw_collection()
 
-    with get_engine().connect() as conn:
+    with get_pg_engine().connect() as conn:
 
         conn.execute(text(CREATE_TABLE))
         conn.commit()
