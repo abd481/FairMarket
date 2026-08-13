@@ -1,22 +1,17 @@
 # In the name of Allah , The most gracious , The most merciful
 import hashlib
-from pymongo import MongoClient
 from enum import Enum
-from dotenv import load_dotenv
-from utils.secrets import get_secret
 
-load_dotenv()
+from utils.db import get_collection
 
 _raw_collection = None
 
 
 def get_raw_collection():
-    """Create the Mongo collection lazily so imports stay side-effect light."""
+    """Get the raw listings collection lazily so imports stay side-effect light."""
     global _raw_collection
     if _raw_collection is None:
-        client = MongoClient(get_secret("MONGO_URI", "mongo-uri"))
-        db = client["real_estate_db"]
-        _raw_collection = db["raw_listings"]
+        _raw_collection = get_collection("raw_listings")
     return _raw_collection
 
 
