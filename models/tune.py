@@ -8,13 +8,11 @@ import numpy as np
 import optuna
 import pandas as pd
 import xgboost as xgb
-from sqlalchemy import create_engine
 from sklearn.metrics import mean_absolute_error
 
 from data.processing.preprocessing import preprocess
-from utils.secrets import get_secret
+from utils.db import get_pg_engine
 
-ENGINE = create_engine(get_secret("POSTGRES", "postgres"))
 VILLA_TYPES = ["Villa", "Stand Alone Villa"]
 
 N_TRIALS = 100
@@ -63,7 +61,7 @@ def tune(mode):
     print(f"Tuning XGBoost for {mode}")
     print(f"{'='*60}")
 
-    df = pd.read_sql("SELECT * FROM clean_properties", ENGINE)
+    df = pd.read_sql("SELECT * FROM clean_properties", get_pg_engine())
     if mode == "only_villas":
         df = df[df["property_type"].isin(VILLA_TYPES)]
     else:
