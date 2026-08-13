@@ -8,15 +8,13 @@ sys.path.insert(0, str(PROJECT_ROOT))
 import numpy as np
 import pandas as pd
 import joblib
-from sqlalchemy import create_engine
 from sklearn.neighbors import NearestNeighbors
 
-from utils.secrets import get_secret
+from utils.db import get_pg_engine
 from models.predict import classify_mode, VILLA_TYPES
 from models.predict import prepare_row
 
 # --- Global config / shared resources ---------------------------------
-ENGINE = create_engine(get_secret("POSTGRES", "postgres"))
 REC_DIR = PROJECT_ROOT / "artifacts" / "recommendations"
 
 # Per-mode filter definitions: which property types belong to each index,
@@ -36,7 +34,7 @@ def build_index(mode):
     and dumps the index plus its feature matrix / ids / metadata to disk.
     """
     REC_DIR.mkdir(parents=True, exist_ok=True)
-    df = pd.read_sql("SELECT * FROM clean_properties", ENGINE)
+    df = pd.read_sql("SELECT * FROM clean_properties", get_pg_engine())
 
     # Filter by mode (villa vs. non-villa properties)
     if MODEL_PARAMS[mode]["other"]:
@@ -253,23 +251,34 @@ def explore(
     city=None, district=None, property_type=None, price_min=None, price_max=None, k=20
 ):
     """Browse recent listings with optional filters, flagging underpriced deals."""
-    query = "SELECT cp.*, pp.predicted_price FROM clean_properties cp "
-    query += "LEFT JOIN property_predictions pp ON cp.id = pp.property_id WHERE 1=1 "
+    query = """
+        SELECT cp.*, pp.predicted_price
+        FROM clean_properties cp
+        LEFT JOIN property_predictions pp ON cp.id = pp.property_id
+        WHERE 1=1
+    """
+    params = {}
 
     if city:
-        query += f"AND cp.city = '{city}' "
+        query += " AND cp.city = :city"
+        params["city"] = city
     if district:
-        query += f"AND cp.district = '{district}' "
+        query += " AND cp.district = :district"
+        params["district"] = district
     if property_type:
-        query += f"AND cp.property_type = '{property_type}' "
+        query += " AND cp.property_type = :property_type"
+        params["property_type"] = property_type
     if price_min:
-        query += f"AND cp.price >= {price_min} "
+        query += " AND cp.price >= :price_min"
+        params["price_min"] = price_min
     if price_max:
-        query += f"AND cp.price <= {price_max} "
+        query += " AND cp.price <= :price_max"
+        params["price_max"] = price_max
 
-    query += f"ORDER BY cp.scraped_at DESC LIMIT {k}"
+    query += " ORDER BY cp.scraped_at DESC LIMIT :k"
+    params["k"] = k
 
-    df = pd.read_sql(query, ENGINE)
+    df = pd.read_sql(query, get_pg_engine(), params=params)
 
     if df.empty:
         print("No listings match your filters.")
