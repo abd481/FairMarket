@@ -33,6 +33,22 @@ CREATE TABLE IF NOT EXISTS properties (
 );
 """
 
+INSERT_ROW = text("""
+    INSERT INTO properties (
+        checksum, price, location, title,
+        beds, baths, area, property_type,
+        furnishing, amenities, link,
+        reactivated_date, source, scraped_at, transformed_at
+    )
+    VALUES (
+        :checksum, :price, :location, :title,
+        :beds, :baths, :area, :property_type,
+        :furnishing, :amenities, :link,
+        :reactivated_date, :source, :scraped_at, :transformed_at
+    )
+    ON CONFLICT (checksum) DO NOTHING
+""")
+
 
 def safe_int(value):
     """For price, baths — returns None if not a valid number."""
@@ -73,18 +89,15 @@ def transform():
             print("⚠️ Nothing to transform")
             return
 
-        inserted = 0
+        # 1. Build every row up-front (one round-trip for the whole batch).
+        rows = []
         skipped = 0
-        errors = 0
 
         for doc in docs:
-
             try:
-
                 data = doc.get("listing_data", {})
 
                 amenities = data.get("amenities")
-
                 if isinstance(amenities, list):
                     amenities = ", ".join(amenities)
 
@@ -105,56 +118,63 @@ def transform():
                     "scraped_at": doc.get("scraped_at"),
                     "transformed_at": datetime.now(),
                 }
-
-                if not flat["checksum"]:
-                    print("⚠️ Skipping document with no checksum")
-                    skipped += 1
-                    continue
-
-                conn.execute(
-                    text("""
-                    INSERT INTO properties (
-                        checksum, price, location, title,
-                        beds, baths, area, property_type,
-                        furnishing, amenities, link,
-                        reactivated_date, source, scraped_at, transformed_at
-                    )
-                    VALUES (
-                        :checksum, :price, :location, :title,
-                        :beds, :baths, :area, :property_type,
-                        :furnishing, :amenities, :link,
-                        :reactivated_date, :source, :scraped_at, :transformed_at
-                    )
-                    ON CONFLICT (checksum) DO NOTHING
-                """),
-                    flat,
-                )
-
-                raw_collection.update_one(
-                    {"_id": doc["_id"]}, {"$set": {"transformed": True}}
-                )
-
-                conn.commit()
-
-                inserted += 1
-
             except Exception as e:
-
-                conn.rollback()
+                print(f"❌ Build error | doc: {doc.get('_id')} | {e}")
                 raw_collection.update_one(
                     {"_id": doc["_id"]}, {"$set": {"transformed": False}}
                 )
+                continue
 
-                print(
-                    f"❌ Error | link: {doc.get('listing_data', {}).get('link')} | {e}"
+            if not flat["checksum"]:
+                print("⚠️ Skipping document with no checksum")
+                skipped += 1
+                continue
+
+            rows.append((flat, doc["_id"]))
+
+        if not rows:
+            print("\n✅ Transform done!")
+            print(f"   Inserted:  0")
+            print(f"   Skipped:   {skipped}")
+            return
+
+        # 2. Insert everything in a single transaction.
+        try:
+            conn.execute(INSERT_ROW, [flat for flat, _ in rows])
+            conn.commit()
+        except Exception:
+            # 3. Bulk insert aborted the transaction — isolate bad rows.
+            conn.rollback()
+            print("⚠️ Bulk insert failed — falling back to row-by-row")
+            good_rows = []
+            for flat, doc_id in rows:
+                try:
+                    conn.execute(INSERT_ROW, flat)
+                    good_rows.append((flat, doc_id))
+                except Exception as e:
+                    conn.rollback()
+                    raw_collection.update_one(
+                        {"_id": doc_id}, {"$set": {"transformed": False}}
+                    )
+                    print(f"❌ Error | link: {flat.get('link')} | {e}")
+            conn.commit()
+            rows = good_rows
+
+        # 4. Mark Mongo as transformed only after Postgres committed.
+        inserted = 0
+        for _, doc_id in rows:
+            try:
+                raw_collection.update_one(
+                    {"_id": doc_id}, {"$set": {"transformed": True}}
                 )
-
-                errors += 1
+            except Exception as e:
+                print(f"⚠️ Could not mark {doc_id} as transformed: {e}")
+            inserted += 1
 
         print("\n✅ Transform done!")
         print(f"   Inserted:  {inserted}")
         print(f"   Skipped:   {skipped}")
-        print(f"   Errors:    {errors}")
+        print(f"   Errors:    {len(docs) - inserted - skipped}")
 
 
 if __name__ == "__main__":
