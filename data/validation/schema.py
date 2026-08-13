@@ -38,7 +38,7 @@ class Property(BaseModel):
         """Strip currency symbols, commas, and whitespace then cast to int."""
         try:
             return int(str(v).replace(",", "").replace("EGP", "").strip())
-        except:
+        except Exception:
             return None
 
     @field_validator("beds", "baths", mode="before")
@@ -49,7 +49,7 @@ class Property(BaseModel):
             return None
         try:
             return int(str(v).split()[0].replace("+", ""))
-        except:
+        except Exception:
             return str(v).strip()
 
     @field_validator("area", mode="before")
@@ -58,7 +58,7 @@ class Property(BaseModel):
         """Strip units like 'sqm' and cast to float."""
         try:
             return float(str(v).split()[0].replace(",", ""))
-        except:
+        except Exception:
             return None
 
     @field_validator("amenities", mode="before")
@@ -71,7 +71,7 @@ class Property(BaseModel):
             return v
         try:
             return ast.literal_eval(str(v))
-        except:
+        except Exception:
             return None
 
     @field_validator("furnishing", mode="before")
@@ -105,7 +105,7 @@ class Property(BaseModel):
             return datetime.now()
         try:
             return datetime.strptime(v_str, "%d %B %Y")
-        except:
+        except Exception:
             return None
 
     @model_validator(mode="after")
