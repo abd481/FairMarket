@@ -5,7 +5,6 @@ import time
 import os
 from datetime import datetime, timezone
 from pathlib import Path
-from sqlalchemy import create_engine
 from logging import getLogger
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,7 +13,7 @@ from contextlib import asynccontextmanager
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from utils.secrets import get_secret
+from utils.db import get_pg_engine
 from api.services.location import build_location_cache, resolve_location
 from api.services.predictor import predict
 from api.services.recommender import recommend
@@ -32,8 +31,14 @@ LOGGER = getLogger()
 
 
 def _load_all():
-    ENGINE = create_engine(get_secret("POSTGRES", "postgres"))
-    df = pd.read_sql("SELECT * FROM clean_properties", ENGINE)
+    df = pd.read_sql(
+        """
+        SELECT location, district, city, compound, AVG(price_per_sqm) AS price_per_sqm
+        FROM clean_properties
+        GROUP BY location, district, city, compound
+        """,
+        get_pg_engine(),
+    )
     location_caches = build_location_cache(df)
     models = {}
 
@@ -116,7 +121,7 @@ async def health(request: Request):
 
 
 @app.post("/api/predict", response_model=PredictResponse)
-async def predict_price(body: PredictRequest, request: Request):
+def predict_price(body: PredictRequest, request: Request):
     loc = resolve_location(body.location, request.app.state.location_caches)
     if not loc.matched:
         raise HTTPException(
@@ -128,7 +133,7 @@ async def predict_price(body: PredictRequest, request: Request):
 
 
 @app.post("/api/recommend", response_model=RecommendResponse)
-async def recommend_properties(body: RecommendRequest, request: Request):
+def recommend_properties(body: RecommendRequest, request: Request):
     loc = resolve_location(body.location, request.app.state.location_caches)
     if not loc.matched:
         raise HTTPException(
