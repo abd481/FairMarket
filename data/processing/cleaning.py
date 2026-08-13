@@ -3,14 +3,13 @@
 import os
 import sys
 import pandas as pd
-from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
 sys.path.insert(
     0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 )
 
-from utils.secrets import get_secret
+from utils.db import get_pg_engine
 
 load_dotenv()
 
@@ -57,12 +56,8 @@ def canonicalize_location(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def get_engine():
-    return create_engine(get_secret("POSTGRES", "postgres"))
-
-
 def load_data() -> pd.DataFrame:
-    df = pd.read_sql("SELECT * FROM properties", get_engine())
+    df = pd.read_sql("SELECT * FROM properties", get_pg_engine())
     print(f"✅ Loaded {len(df)} rows")
     return df
 
@@ -187,7 +182,7 @@ def drop_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 def save_data(df: pd.DataFrame) -> None:
     df.to_sql(
-        name="clean_properties", con=get_engine(), if_exists="replace", index=False
+        name="clean_properties", con=get_pg_engine(), if_exists="replace", index=False
     )
     # print(f"✅ Saved {len(df)} rows to clean_properties")
 
