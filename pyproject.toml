@@ -37,6 +37,7 @@ xgboost = ">=3.3.0,<4.0.0"
 mlflow = "^3.14.0"
 fastapi = ">=0.136.1,<1.0.0"
 uvicorn = {extras = ["standard"], version = ">=0.47.0,<1.0.0"}
+slowapi = ">=0.1.9,<1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = ">=26.3.1,<27.0.0"
