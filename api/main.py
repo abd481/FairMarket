@@ -9,6 +9,10 @@ from pathlib import Path
 from logging import getLogger
 from fastapi import FastAPI, HTTPException, Path as FastAPIPath, Request
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
+from slowapi.util import get_remote_address
 from contextlib import asynccontextmanager
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +35,11 @@ from api.schemas import (
 )
 
 LOGGER = getLogger()
+
+# In-memory rate limiting keyed by client IP. Matches the single-worker
+# deployment (uvicorn without --workers). Swap the storage for a shared
+# backend (e.g. Redis) before scaling to multiple workers.
+limiter = Limiter(key_func=get_remote_address)
 
 
 def _load_all():
@@ -94,6 +103,9 @@ async def lifespan(app):
 
 
 app = FastAPI(title="FairMarket Real estate API.", lifespan=lifespan)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -107,11 +119,13 @@ app.add_middleware(
 
 
 @app.get("/api/locations")
+@limiter.limit("120/minute")
 async def list_locations(request: Request):
     return request.app.state.location_caches["locations"]
 
 
 @app.get("/health")
+@limiter.limit("120/minute")
 async def health(request: Request):
     return HealthResponse(
         status=Status.READY,
@@ -124,7 +138,8 @@ async def health(request: Request):
 
 
 @app.post("/api/predict", response_model=PredictResponse)
-def predict_price(body: PredictRequest, request: Request):
+@limiter.limit("20/minute")
+def predict_price(request: Request, body: PredictRequest):
     loc = resolve_location(body.location, request.app.state.location_caches)
     if not loc.matched:
         raise HTTPException(
@@ -136,7 +151,8 @@ def predict_price(body: PredictRequest, request: Request):
 
 
 @app.post("/api/recommend", response_model=RecommendResponse)
-def recommend_properties(body: RecommendRequest, request: Request):
+@limiter.limit("20/minute")
+def recommend_properties(request: Request, body: RecommendRequest):
     loc = resolve_location(body.location, request.app.state.location_caches)
     if not loc.matched:
         raise HTTPException(
@@ -148,10 +164,14 @@ def recommend_properties(body: RecommendRequest, request: Request):
 
 
 @app.get("/api/properties/{property_id}", response_model=PropertyDetail)
+@limiter.limit("120/minute")
 def get_property_endpoint(
+    request: Request,
     property_id: Annotated[int, FastAPIPath(gt=0)],
 ):
     prop = get_property(property_id)
     if prop is None:
-        raise HTTPException(status_code=404, detail=f"Property {property_id} not found.")
+        raise HTTPException(
+            status_code=404, detail=f"Property {property_id} not found."
+        )
     return prop
