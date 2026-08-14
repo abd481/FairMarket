@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "title": "FairMarket — Know the fair value of your property in Egypt",
+    "description": "AI-powered property valuation for Egypt. Estimate the fair price of any property from live market data and find comparable listings."
+  },
+  "nav": {
+    "brand": "FairMarket",
+    "home": "Home",
+    "valuation": "Valuation",
+    "recommendations": "Similar properties",
+    "valueCta": "Value your property"
+  },
+  "hero": {
+    "badge": "AI-powered · Egypt market data",
+    "title": "Know the fair value of your property in Egypt",
+    "subtitle": "FairMarket estimates the fair price of any home using live market data and AI — so buyers, sellers, and investors can make confident decisions without guessing.",
+    "primaryCta": "Value your property",
+    "secondaryCta": "See how it works",
+    "trustPoints": ["No sign-up needed", "Backed by real listings", "Instant estimate"]
+  },
+  "trust": {
+    "title": "Why trust FairMarket",
+    "subtitle": "A fair estimate should be simple to understand and hard to argue with.",
+    "items": [
+      {
+        "title": "Market-driven data",
+        "description": "Estimates are built from thousands of real listings across Egypt, not guesses or anecdotes."
+      },
+      {
+        "title": "Intelligent valuation",
+        "description": "AI weighs location, size, type, and features to surface what comparable homes actually sell for."
+      },
+      {
+        "title": "Comparable properties",
+        "description": "See the real listings behind your estimate and judge the result for yourself."
+      }
+    ]
+  },
+  "how": {
+    "title": "How it works",
+    "subtitle": "Three steps from details to a fair price.",
+    "steps": [
+      {
+        "title": "Enter the details",
+        "description": "Tell us the location, type, size, and features of the property you want to value."
+      },
+      {
+        "title": "We analyze the market",
+        "description": "Our model compares your property against comparable listings across Egypt in real time."
+      },
+      {
+        "title": "Receive a fair estimate",
+        "description": "Get a transparent price range with similar properties you can explore yourself."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Ready to know your property's fair value?",
+    "subtitle": "It takes less than a minute.",
+    "cta": "Value your property"
+  },
+  "footer": {
+    "tagline": "Fair market prices for Egyptian real estate.",
+    "links": "Product",
+    "legal": "Legal",
+    "rights": "All rights reserved.",
+    "disclaimer": "FairMarket provides estimates based on listing data and is not a legal or financial valuation."
+  },
+  "valuation": {
+    "title": "Value your property",
+    "subtitle": "Enter the details and get a fair, data-driven price estimate in seconds.",
+    "fields": {
+      "location": "Location",
+      "locationHint": "Start typing to search your area",
+      "propertyType": "Property type",
+      "area": "Area (m²)",
+      "beds": "Bedrooms",
+      "baths": "Bathrooms",
+      "furnishing": "Furnishing",
+      "amenities": "Amenities",
+      "amenitiesHint": "Select any that apply"
+    },
+    "placeholders": {
+      "location": "e.g. New Cairo, 6th of October…",
+      "area": "e.g. 120",
+      "beds": "e.g. 2",
+      "baths": "e.g. 2",
+      "select": "Select…"
+    },
+    "options": {
+      "propertyTypes": {
+        "Apartment": "Apartment",
+        "Other": "Other",
+        "Duplex": "Duplex",
+        "Penthouse": "Penthouse",
+        "Hotel Apartment": "Hotel Apartment",
+        "Townhouse": "Townhouse",
+        "Studio": "Studio",
+        "Villa": "Villa",
+        "Twin House": "Twin House",
+        "Stand Alone Villa": "Stand Alone Villa",
+        "Chalet": "Chalet"
+      },
+      "furnishing": {
+        "Furnished": "Furnished",
+        "Unfurnished": "Unfurnished"
+      },
+      "amenities": {
+        "pool": "Swimming pool",
+        "gym": "Gym",
+        "balcony": "Balcony",
+        "elevator": "Elevator",
+        "security": "Security",
+        "covered parking": "Covered parking",
+        "private garden": "Private garden",
+        "maids room": "Maid's room",
+        "sea view": "Sea view",
+        "smart home": "Smart home"
+      }
+    },
+    "errors": {
+      "required": "This field is required.",
+      "locationRequired": "Please choose a location.",
+      "areaMin": "Area must be greater than 0.",
+      "areaNumber": "Please enter a valid area.",
+      "bedsNumber": "Please enter a valid number.",
+      "bathsMin": "Bathrooms must be at least 1.",
+      "bathsNumber": "Please enter a valid number."
+    },
+    "submit": "Get fair value",
+    "submitting": "Analyzing the market…",
+    "submittingHint": "Comparing your property against recent listings. This takes a few seconds.",
+    "apiError": "We couldn't complete the valuation right now. Please try again.",
+    "locationNotFound": "We couldn't find that location. Pick one from the list."
+  },
+  "result": {
+    "title": "Fair price valuation",
+    "badge": "Data-powered estimate",
+    "predictedLabel": "Estimated fair price",
+    "rangeLabel": "Estimated fair price range",
+    "pricePerSqm": "Price per m²",
+    "detailsTitle": "Property details",
+    "location": "Location",
+    "propertyType": "Property type",
+    "area": "Area",
+    "beds": "Bedrooms",
+    "baths": "Bathrooms",
+    "furnishing": "Furnishing",
+    "disclaimer": "This estimate is based on listing data and is not a legal or financial valuation.",
+    "viewSimilar": "View similar properties",
+    "valueAnother": "Value another property",
+    "emptyTitle": "No estimate yet",
+    "emptyDescription": "Value a property first to see its fair price estimate here.",
+    "errorTitle": "We couldn't load your estimate",
+    "errorDescription": "Please try valuing your property again."
+  },
+  "recommendations": {
+    "title": "Similar properties",
+    "subtitle": "Real listings comparable to your property, ranked by closeness to your property details.",
+    "rankNote": "Ranked by closeness to your property details.",
+    "filters": {
+      "title": "Filters",
+      "priceMin": "Min price",
+      "priceMax": "Max price",
+      "location": "Location",
+      "propertyType": "Property type",
+      "apply": "Apply filters",
+      "clear": "Clear"
+    },
+    "card": {
+      "pricePerSqm": "/m²",
+      "beds": "beds",
+      "baths": "baths",
+      "comparable": "Comparable property",
+      "noImage": "No photo available",
+      "furnished": "Furnished",
+      "unfurnished": "Unfurnished"
+    },
+    "loading": "Finding comparable properties…",
+    "emptyTitle": "No comparable properties found",
+    "emptyDescription": "Try widening your filters or adjust the property details.",
+    "errorTitle": "We couldn't load similar properties",
+    "errorDescription": "Please try again in a moment.",
+    "backToResult": "Back to estimate",
+    "backToValuation": "Value another property"
+  },
+  "property": {
+    "fallbackTitle": "Property listing",
+    "propertyType": "Property type",
+    "pricePerSqm": "Price per m²",
+    "location": "Location",
+    "area": "Area",
+    "beds": "Bedrooms",
+    "baths": "Bathrooms",
+    "furnishing": "Furnishing",
+    "amenities": "Amenities",
+    "furnished": "Furnished",
+    "unfurnished": "Unfurnished",
+    "notSpecified": "Not specified",
+    "viewListing": "View original listing",
+    "backToSimilar": "Back to similar properties",
+    "loading": "Loading property details…",
+    "errorTitle": "We couldn't load this property",
+    "errorDescription": "Please try again in a moment.",
+    "retry": "Try again",
+    "notFoundTitle": "Property not found",
+    "notFoundDescription": "This listing may no longer be available."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist.",
+    "cta": "Back home"
+  },
+  "language": {
+    "label": "العربية"
+  }
+}
