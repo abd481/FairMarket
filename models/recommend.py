@@ -216,6 +216,11 @@ def recommend_from_features(
     metadata = metadata[metadata["id"].isin(neighbor_ids)].copy()
     id_to_indices = dict(zip(neighbor_ids, neighbor_dists))
     metadata["_dist"] = metadata["id"].map(id_to_indices)
+    # KNN returns neighbors in ascending-distance order, but .isin() above
+    # preserves the metadata frame's original row order. Sort by the mapped
+    # KNN distance so the closest neighbors are processed first — this must
+    # happen before any price filtering and before limiting to k.
+    metadata = metadata.sort_values("_dist", kind="stable")
 
     if price is not None:
         upper = price + (price * price_tolerance)
