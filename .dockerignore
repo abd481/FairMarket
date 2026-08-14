@@ -8,6 +8,7 @@ __pycache__/
 notebooks/
 logs/
 artifacts/
+!artifacts/
 .pytest_cache/
 .prefectignore
 .vscode/
