@@ -3,10 +3,11 @@ import joblib
 import sys
 import time
 import os
+from typing import Annotated
 from datetime import datetime, timezone
 from pathlib import Path
 from logging import getLogger
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Path as FastAPIPath, Request
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
@@ -17,6 +18,7 @@ from utils.db import get_pg_engine
 from api.services.location import build_location_cache, resolve_location
 from api.services.predictor import predict
 from api.services.recommender import recommend
+from api.services.properties import get_property
 from api.schemas import (
     RecommendRequest,
     RecommendResponse,
@@ -25,6 +27,7 @@ from api.schemas import (
     PredictResponse,
     Status,
     HealthResponse,
+    PropertyDetail,
 )
 
 LOGGER = getLogger()
@@ -142,3 +145,13 @@ def recommend_properties(body: RecommendRequest, request: Request):
         )
 
     return recommend(body, loc, request.app.state.models)
+
+
+@app.get("/api/properties/{property_id}", response_model=PropertyDetail)
+def get_property_endpoint(
+    property_id: Annotated[int, FastAPIPath(gt=0)],
+):
+    prop = get_property(property_id)
+    if prop is None:
+        raise HTTPException(status_code=404, detail=f"Property {property_id} not found.")
+    return prop
