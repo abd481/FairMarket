@@ -161,7 +161,11 @@ class TestGetProperty:
 
 class TestPropertyEndpoint:
     def test_existing_property_returns_safe_shape(self, client, monkeypatch):
-        monkeypatch.setattr(main, "get_property", lambda pid: properties_service.get_property(pid) or PropertyDetail())
+        monkeypatch.setattr(
+            main,
+            "get_property",
+            lambda pid: properties_service.get_property(pid) or PropertyDetail(),
+        )
         # Avoid DB by pointing the service at a fake engine with ROW.
         fake_engine_row = dict(ROW)
         conn = FakeConn(fake_engine_row)

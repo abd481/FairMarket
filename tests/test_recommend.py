@@ -87,9 +87,7 @@ class TestRecommendOrdering:
         result = run_recommend(metadata, k=3)
         sims = [r["similarity"] for r in result["recommendations"]]
         # similarity = 1 / (1 + dist) with dist 0.1, 0.2, 0.3
-        assert sims == pytest.approx(
-            [1 / 1.1, 1 / 1.2, 1 / 1.3], rel=1e-9
-        )
+        assert sims == pytest.approx([1 / 1.1, 1 / 1.2, 1 / 1.3], rel=1e-9)
         assert sims == sorted(sims, reverse=True)
 
     def test_honors_k_limit(self, metadata):

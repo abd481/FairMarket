@@ -5,15 +5,13 @@ from sqlalchemy import text
 from api.schemas import PropertyDetail
 from utils.db import get_pg_engine
 
-SELECT_PROPERTY = text(
-    """
+SELECT_PROPERTY = text("""
     SELECT id, title, price, area, beds, baths, location,
            district, city, compound, property_type, furnishing,
            amenities, price_per_sqm, source, link
     FROM clean_properties
     WHERE id = :property_id
-    """
-)
+    """)
 
 
 def _parse_amenities(value) -> list[str]:
@@ -46,9 +44,11 @@ def get_property(property_id: int) -> Optional[PropertyDetail]:
     Returns None when no matching row exists.
     """
     with get_pg_engine().connect() as conn:
-        row = conn.execute(
-            SELECT_PROPERTY, {"property_id": property_id}
-        ).mappings().first()
+        row = (
+            conn.execute(SELECT_PROPERTY, {"property_id": property_id})
+            .mappings()
+            .first()
+        )
 
     if row is None:
         return None
