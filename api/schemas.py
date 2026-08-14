@@ -97,6 +97,25 @@ class RecommendResponse(BaseModel):
     resolved_location: ResolvedLocation
 
 
+class PropertyDetail(BaseModel):
+    id: int
+    title: Optional[str] = None
+    price: float
+    area: float
+    beds: int
+    baths: int
+    location: str
+    district: Optional[str] = None
+    city: Optional[str] = None
+    compound: Optional[str] = None
+    property_type: str
+    furnishing: Optional[str] = None
+    amenities: list[str] = []
+    price_per_sqm: Optional[float] = None
+    source: Optional[str] = None
+    link: Optional[str] = None
+
+
 class Status(str, Enum):
     READY = "ready"
     STARTING = "starting"
