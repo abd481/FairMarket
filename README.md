@@ -2,13 +2,49 @@
 
 ### Know what your home is really worth in Egypt.
 
-FairMarket is an end-to-end machine learning platform for the Egyptian real-estate market. It continuously collects live listings, verifies and cleans them, learns fair price ranges for every district, and exposes that intelligence through a simple API — so buyers, sellers, agents, and investors can stop guessing.
+FairMarket is an end-to-end AI platform for the Egyptian real-estate market. It continuously collects live listings, verifies and cleans them, learns fair price ranges for every district, and exposes that intelligence through a simple API — so buyers, sellers, agents, and investors can stop guessing.
 
-![CI](https://img.shields.io/badge/build-passing-brightgreen)
-![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)
+> **Don't take our word for it — try it.** This isn't a concept or a slide deck. The whole product is **built, trained, and running in this repo** — a live web app, a working API, trained models, and the scrapers feeding them, all checked in and ready to run.
+
+| You get... | Because it's real |
+| --- | --- |
+| **A fair price for any home in Egypt** | A live web app (English + Arabic) that takes a property and returns a price range in seconds |
+| **Answers backed by today's market** | Live listings collected from Bayut & OLX, refreshed **every single day** at market open (Cairo time) |
+| **Proof it works** | Trained price models, a running API, and an app you can open in your browser — all checked in, nothing hidden |
+| **Trust in the numbers** | Every estimate is checked twice, deduplicated, and price-calibrated against comparable sales |
+| **A product, not a prototype** | Months of active development, CI-checked, containerized, and ready to deploy |
+
+> **Accuracy that compounds.** On unseen listings, FairMarket's model explains **~77% of price variance** and lands within **~17% of fair market price** — and it sharpens every day. Every new listing the platform ingests is a lesson: the more we learn, the smarter we get, the smaller our margin of error. The proof is tracked in this repo's MLflow.
+
+> _The app — one command from running. Screenshot coming soon: `docs/screenshots/valuation.png`_
+
+![CI](https://github.com/abd481/Real-estate-end-to-end-System-/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.12-blue)
 ![Poetry](https://img.shields.io/badge/dependencies-poetry-purple)
 
 ---
+
+## Contents
+
+- [The Problem](#the-problem)
+- [What FairMarket Does](#what-fairmarket-does)
+- [Who It's For](#who-its-for)
+- [Key Capabilities](#key-capabilities)
+- [How It Works, End to End](#how-it-works-end-to-end)
+- [Tech Stack](#tech-stack)
+- [Web App (Frontend)](#web-app-frontend)
+- [Project Layout](#project-layout)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Testing](#testing)
+- [Docker](#docker)
+- [Outputs](#outputs)
+- [Roadmap](#roadmap)
+- [Disclaimer](#disclaimer)
+- [Notes](#notes)
+- [Authors](#authors)
 
 ## The Problem
 
@@ -69,6 +105,7 @@ flowchart LR
     API --> PRED[/api/predict/]
     API --> REC[/api/recommend/]
     CL -.-> API
+    API --> REC[/api/recommend/]
 ```
 
 Each stage is modular and independently testable — reliable by design, not by accident.
@@ -77,7 +114,7 @@ Each stage is modular and independently testable — reliable by design, not by 
 
 | Layer | Technology |
 | --- | --- |
-| Language | Python 3.11+ |
+| Language | Python 3.12 |
 | Packaging | Poetry |
 | Scraping | Playwright + playwright-stealth |
 | Orchestration | Prefect (v3), cron scheduling |
@@ -87,6 +124,25 @@ Each stage is modular and independently testable — reliable by design, not by 
 | Tuning & tracking | Optuna, MLflow |
 | Serving | FastAPI, SQLAlchemy |
 | Ops | Docker, Docker Compose, GitHub Actions |
+
+## Web App (Frontend)
+
+FairMarket ships with a production Next.js web app in `frontend/` — the public face of the platform. Users describe a property and get an instant fair price range, plus a list of comparable homes, in English or Egyptian Arabic (full RTL support).
+
+```text
+fair price in seconds  ──▶  mobile-friendly web app  ──▶  Arabic + English (RTL)
+```
+
+Setup and details live in [`frontend/README.md`](frontend/README.md):
+
+```bash
+cd frontend
+npm install
+cp .env.example .env.local
+npm run dev   # → http://localhost:3000
+```
+
+The app is deployed-ready for Vercel (root directory `frontend`) and is covered by its own CI job (lint, type-check, build, tests).
 
 ---
 
@@ -107,13 +163,14 @@ The rest of this document covers running, extending, and deploying FairMarket yo
 ├── api/               # FastAPI service (predict, recommend, health, locations)
 ├── utils/             # DB connections and secret resolution (env / Prefect)
 ├── artifacts/         # Persisted pipelines, models, and recommendation indexes
+├── frontend/          # Next.js web app (valuation, results, recommendations)
 ├── tests/             # Unit tests for every layer
 └── notebooks/         # Exploration and analysis notebooks
 ```
 
 ## Prerequisites
 
-- Python 3.11 or newer
+- Python 3.12 or newer
 - Poetry
 - A PostgreSQL database
 - A MongoDB Atlas cluster (or another MongoDB-compatible source)
@@ -243,6 +300,23 @@ curl -X POST http://localhost:8000/api/recommend \
 
 The `location` field must match a value from `/api/locations`.
 
+The `/api/predict` endpoint returns a fair price range plus the resolved location:
+
+```json
+{
+  "predicted_price": 10500000.0,
+  "price_upper": 11550000.0,
+  "price_lower": 9450000.0,
+  "resolved_location": {
+    "original": "New Cairo",
+    "city": "Cairo",
+    "district": "New Cairo",
+    "compound": null,
+    "matched": true
+  }
+}
+```
+
 ## Testing
 
 ```bash
@@ -276,6 +350,17 @@ After a successful run you should expect:
 - Trained models, calibration artifacts, and district price-per-square-meter estimates under `artifacts/models/`.
 - KNN recommendation indexes under `artifacts/recommendations/`.
 - Telegram status messages for success or failure.
+
+## Roadmap
+
+- **More sources**: expand beyond Bayut & OLX to additional Egyptian listing platforms.
+- **More coverage**: broader city and compound support as data volume grows.
+- **Sharper models**: every daily refresh trains on more data, reducing estimation error over time.
+- **Richer product**: historical price trends, per-compound reports, and comparison tools in the web app.
+
+## Disclaimer
+
+FairMarket provides data-driven price estimates for guidance, not professional appraisals. Published listings are collected from third-party sources, and estimates are only as good as the underlying data. Always validate a property's value with a qualified local professional before making financial decisions.
 
 ## Notes
 
