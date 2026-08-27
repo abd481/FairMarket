@@ -2,6 +2,14 @@
 
 ### Know what your home is really worth in Egypt.
 
+![CI](https://github.com/abd481/Real-estate-end-to-end-System-/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.12-blue)
+![Poetry](https://img.shields.io/badge/dependencies-poetry-purple)
+
+[**English**](README.md) · [**العربية**](README.ar.md)
+
+---
+
 FairMarket is an end-to-end AI platform for the Egyptian real-estate market. It continuously collects live listings, verifies and cleans them, learns fair price ranges for every district, and exposes that intelligence through a simple API — so buyers, sellers, agents, and investors can stop guessing.
 
 > **Don't take our word for it — try it.** This isn't a concept or a slide deck. The whole product is **built, trained, and running in this repo** — a live web app, a working API, trained models, and the scrapers feeding them, all checked in and ready to run.
@@ -17,10 +25,6 @@ FairMarket is an end-to-end AI platform for the Egyptian real-estate market. It 
 > **Accuracy that compounds.** On unseen listings, FairMarket's model explains **~77% of price variance** and lands within **~17% of fair market price** — and it sharpens every day. Every new listing the platform ingests is a lesson: the more we learn, the smarter we get, the smaller our margin of error. The proof is tracked in this repo's MLflow.
 
 > _The app — one command from running. Screenshot coming soon: `docs/screenshots/valuation.png`_
-
-![CI](https://github.com/abd481/Real-estate-end-to-end-System-/actions/workflows/ci.yml/badge.svg)
-![Python](https://img.shields.io/badge/python-3.12-blue)
-![Poetry](https://img.shields.io/badge/dependencies-poetry-purple)
 
 ---
 
@@ -105,7 +109,6 @@ flowchart LR
     API --> PRED[/api/predict/]
     API --> REC[/api/recommend/]
     CL -.-> API
-    API --> REC[/api/recommend/]
 ```
 
 Each stage is modular and independently testable — reliable by design, not by accident.
