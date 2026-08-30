@@ -1,4 +1,4 @@
-name: Real estate Project
+name: FairMarket
 prefect-version: 3.7.0
 
 build: null
@@ -6,24 +6,23 @@ push: null
 
 pull:
   - prefect.deployments.steps.git_clone:
-      repository: https://github.com/abd481/Real-estate-end-to-end-System-
+      repository: https://github.com/abd481/FairMarket
       branch: main
-      access_token: '{{ prefect.blocks.secret.deployment-data-pipeline-real-estate-pipeline-repo-token }}'
   - prefect.deployments.steps.run_shell_script:
       script: pip install "poetry==2.3.2"
-      directory: Real-estate-end-to-end-System--main
+      directory: FairMarket-main
   - prefect.deployments.steps.run_shell_script:
       script: poetry config virtualenvs.create false
-      directory: Real-estate-end-to-end-System--main
+      directory: FairMarket-main
   - prefect.deployments.steps.run_shell_script:
       script: poetry install --no-interaction --only main
-      directory: Real-estate-end-to-end-System--main
+      directory: FairMarket-main
   - prefect.deployments.steps.run_shell_script:
       script: python3 -m pip install joblib
-      directory: Real-estate-end-to-end-System--main
+      directory: FairMarket-main
   - prefect.deployments.steps.run_shell_script:
       script: poetry run playwright install --with-deps firefox
-      directory: Real-estate-end-to-end-System--main
+      directory: FairMarket-main
 
 deployments:
   - name: data_pipeline

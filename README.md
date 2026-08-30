@@ -2,7 +2,7 @@
 
 ### Know what your home is really worth in Egypt.
 
-![CI](https://github.com/abd481/Real-estate-end-to-end-System-/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/abd481/FairMarket/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.12-blue)
 ![Poetry](https://img.shields.io/badge/dependencies-poetry-purple)
 

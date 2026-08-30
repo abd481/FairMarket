@@ -1,7 +1,7 @@
 
 {
   "base_url": "https://www.bayut.eg",
-   "path" : "/Users/abdelrahmansayed/Real estate Project/scrapers/configs/bayut.json",
+   "path" : "/Users/abdelrahmansayed/FairMarket/scrapers/configs/bayut.json",
   
   "listing": {
     "cards": "li[aria-label='Listing']",
