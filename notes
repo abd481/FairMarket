@@ -1,6 +1,6 @@
-Project: Real Estate ML System
+Project: FairMarket
 Authors: Walaa Magdy and Abdelrahman Sayed
-Note: Walaa Magdy is the owner and the author of this project (and she's much nice and a little cold 🥶)
+Note: Walaa Magdy is the owner and the author of this project (and she's very nice and a little cold 🥶)
 
 
 
@@ -74,7 +74,7 @@ Pipeline runs daily at 12:00 PM Cairo time
 Scrapes from Bayut and OLX, 3 to 5 pages each per run
 
 
-New folder Structuer 
+New folder Structure 
 
 ├── .env
 ├── .prefectignore
@@ -126,6 +126,6 @@ New folder Structuer
 
 
 
-Technial Debt (Really IMPORTANT) 
+Technical Debt (Really IMPORTANT) 
 
-in Cleaning phase we do feat engineering and that is  Technial debt must be solved later 
+in Cleaning phase we do feature engineering and that is a Technical debt must be solved later 

@@ -77,7 +77,7 @@ def run_preprocess():
     run_preprocessing()
 
 
-@flow(name="real_estate_pipeline", on_failure=[on_failure], on_completion=[on_success])
+@flow(name="fairmarket_pipeline", on_failure=[on_failure], on_completion=[on_success])
 async def main():
     config_paths = [
         ("bayut", PROJECT_ROOT / "scrapers" / "configs" / "bayut.json"),

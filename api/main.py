@@ -102,7 +102,7 @@ async def lifespan(app):
     yield
 
 
-app = FastAPI(title="FairMarket Real estate API.", lifespan=lifespan)
+app = FastAPI(title="FairMarket API.", lifespan=lifespan)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
