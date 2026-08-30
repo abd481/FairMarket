@@ -1,4 +1,4 @@
-<p align="center">
+<div align="center">
 
 # فير ماركت (FairMarket)
 
@@ -10,7 +10,7 @@
 
 [**English**](README.md) · [**العربية**](README.ar.md)
 
-</p>
+</div>
 
 ---
 
