@@ -1,6 +1,8 @@
+<p align="center">
+
 # FairMarket
 
-### Know what your home is really worth in Egypt.
+**Know what your home is really worth in Egypt.**
 
 ![CI](https://github.com/abd481/FairMarket/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.12-blue)
@@ -8,20 +10,24 @@
 
 [**English**](README.md) · [**العربية**](README.ar.md)
 
+</p>
+
 ---
 
 FairMarket is an end-to-end AI platform for the Egyptian real-estate market. It continuously collects live listings, verifies and cleans them, learns fair price ranges for every district, and exposes that intelligence through a simple API — so buyers, sellers, agents, and investors can stop guessing.
 
+> [!NOTE]
 > **Don't take our word for it — try it.** This isn't a concept or a slide deck. The whole product is **built, trained, and running in this repo** — a live web app, a working API, trained models, and the scrapers feeding them, all checked in and ready to run.
 
 | You get... | Because it's real |
-| --- | --- |
+| :--- | :---: |
 | **A fair price for any home in Egypt** | A live web app (English + Arabic) that takes a property and returns a price range in seconds |
 | **Answers backed by today's market** | Live listings collected from Bayut & OLX, refreshed **every single day** at market open (Cairo time) |
 | **Proof it works** | Trained price models, a running API, and an app you can open in your browser — all checked in, nothing hidden |
 | **Trust in the numbers** | Every estimate is checked twice, deduplicated, and price-calibrated against comparable sales |
 | **A product, not a prototype** | Months of active development, CI-checked, containerized, and ready to deploy |
 
+> [!NOTE]
 > **Accuracy that compounds.** On unseen listings, FairMarket's model explains **~77% of price variance** and lands within **~17% of fair market price** — and it sharpens every day. Every new listing the platform ingests is a lesson: the more we learn, the smarter we get, the smaller our margin of error. The proof is tracked in this repo's MLflow.
 
 > _The app — one command from running. Screenshot coming soon: `docs/screenshots/valuation.png`_
@@ -59,7 +65,7 @@ FairMarket exists to replace guesswork with data: live market signals, rigorousl
 ## What FairMarket Does
 
 | For | Outcome |
-| --- | --- |
+| :--- | :---: |
 | **Buyers** | Know a property's fair price range before negotiating — not the listed price, but what it should cost. |
 | **Sellers** | Price confidently with data-backed evidence and avoid leaving money on the table. |
 | **Agents** | Present clients with verified comps and live market context, instantly. |
@@ -116,7 +122,7 @@ Each stage is modular and independently testable — reliable by design, not by 
 ## Tech Stack
 
 | Layer | Technology |
-| --- | --- |
+| :--- | :--- |
 | Language | Python 3.12 |
 | Packaging | Poetry |
 | Scraping | Playwright + playwright-stealth |
@@ -149,7 +155,7 @@ The app is deployed-ready for Vercel (root directory `frontend`) and is covered 
 
 ---
 
-# For Developers
+## For Developers
 
 The rest of this document covers running, extending, and deploying FairMarket yourself.
 
@@ -195,7 +201,7 @@ cp .env.example .env
 ```
 
 | Variable | Description |
-| --- | --- |
+| :--- | :--- |
 | `MONGO_URI` | MongoDB connection string used by the scrapers |
 | `POSTGRES` | PostgreSQL connection string (SQLAlchemy URL) |
 | `TELEGRAM_BOT_TOKEN` | Bot token for pipeline notifications |
